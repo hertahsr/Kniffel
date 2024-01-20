@@ -2,7 +2,6 @@ package KniffelProjekt.Spieler;
 
 import KniffelProjekt.Block.Block;
 
-import java.util.Random;
 
 public class Spieler {
 
@@ -11,7 +10,6 @@ public class Spieler {
     private int siege;
     private int punktstand;//Punktestand der Session
 
-    Random rand = new Random();
 
     //Geters&Setters
     public String getName() {//set only with the Constructor- no need for Setter
@@ -61,12 +59,5 @@ public class Spieler {
         setPunktstand(0);
     }
 
-    /**
-     * Das W"urfeln von nur einem W"urfel.
-     * Hilfsklasse, ohne Logik.
-     * */
-    public int wurf1W()
-    {
-        return  1+rand.nextInt(6);
-    }
+
 }
