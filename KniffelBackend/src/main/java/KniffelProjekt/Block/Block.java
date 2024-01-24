@@ -82,16 +82,23 @@ public class Block {
         return dreierP;
     }
 
-    public void setDreierP(int dreierP) {
-        this.dreierP = dreierP;
+    public void setDreierP(int...wuerfel) {
+        this.dreierP=0;
+        for (Integer w : wuerfel) {
+            this.dreierP += w;
+        }
     }
 
     public int getViererP() {
         return viererP;
     }
 
-    public void setViererP(int viererP) {
-        this.viererP = viererP;
+    public void setViererP(int...wuerfel) {
+        this.viererP=0;
+        for (Integer w : wuerfel) {
+            this.viererP += w;
+        }
+
     }
 
     public int getFull() {
@@ -122,9 +129,11 @@ public class Block {
         return kniffel;
     }
 
-    public void setKniffel() {
-        this.kniffel = 50;
+    //man kann mehrere Kniffel in einem Spiel haben
+    public void setNewKniffel() {
+        this.kniffel = this.kniffel+50;
     }
+
 
     public int getChance() {
         return chance;
@@ -133,8 +142,53 @@ public class Block {
     public void setChance(int chance) {
         this.chance = chance;
     }
+//setVoid Methoden, wenn der Spieler
+// am Ende strategsch mit seinen Punkten umgehen will
+
+    public void setVoidNurEinsen() {
+        this.nurEinsen = 0;
+    }
+    public void setVoidNurZweier() {
+        this.nurZweier = 0;
+    }
+    public void setVoidNurDreier() {
+        this.nurDreier = 0;
+    }
+    public void setVoidNurVierer() {
+        this.nurVierer = 0;
+    }
+    public void setVoidNurFunfer() {
+        this.nurFunfer = 0;
+    }
+        public void setVoidNurSechser() {
+            this.nurSechser = 0;
+        }
+        public void setVoidDreierP() {
+            this.dreierP = 0;
+        }
+        public void setVoidViererP() {
+            this.viererP = 0;
+        }
+        public void setVoidFull() {
+            this.full = 0;
+        }
+        public void setVoidKleineS() {
+            this.kleineS = 0;
+        }
+        public void setVoidGrosseS() {
+            this.grosseS = 0;
+        }
+
+    public void setVoidKniffel() {
+        this.kniffel = 0;
+    }
+        public void setVoidChance() {
+            this.chance = 0;
+        }
 
 
+
+    //Konstructor
     public Block() {
 
     }
