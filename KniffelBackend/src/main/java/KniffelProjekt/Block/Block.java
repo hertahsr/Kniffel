@@ -82,6 +82,9 @@ public class Block {
         return dreierP;
     }
 
+/**
+ * @param - nimmt beliebiger Parameteranzahl ein hintereinander und transformiert sie in ein Array.
+ */
     public void setDreierP(int...wuerfel) {
         this.dreierP=0;
         for (Integer w : wuerfel) {
@@ -93,6 +96,9 @@ public class Block {
         return viererP;
     }
 
+    /**
+     * @param - nimmt beliebiger Parameteranzahl ein hintereinander und transformiert sie in ein Array.
+     */
     public void setViererP(int...wuerfel) {
         this.viererP=0;
         for (Integer w : wuerfel) {
