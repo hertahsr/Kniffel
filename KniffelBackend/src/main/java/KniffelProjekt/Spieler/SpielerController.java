@@ -10,7 +10,7 @@ public class SpielerController {
     private SpielerService spielerService;
 
     @PostMapping("/spieler")
-    public Spieler postNeuerSpieler(@RequestBody String name) {
+    public Spieler postSpieler(@RequestBody String name) {
         return spielerService.neuerSpieler(name);
     }
 }
