@@ -8,6 +8,7 @@ import lombok.Setter;
 public class Spieler {
     private String name;
     private Block block = new Block();
-    private int siege;
-    private int punktestand;
+    private int siege = 0;
+    private int punktestand = 0;
+    private Long spielerId;
 }
