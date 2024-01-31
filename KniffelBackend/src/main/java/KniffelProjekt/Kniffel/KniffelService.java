@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Service
 public class KniffelService {
 
-    ArrayList<Kniffel> spielliste = new ArrayList<>();
+    private ArrayList<Kniffel> spielliste = new ArrayList<>();
 
     public Kniffel spielStarten(ArrayList<Spieler> teilnehmer) {
         Kniffel neuesKniffel = new Kniffel();

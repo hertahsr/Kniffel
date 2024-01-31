@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class KniffelController {
 
     @Autowired
-    KniffelService kniffelService;
+    private KniffelService kniffelService;
 
     @PostMapping("/neuesSpielStarten")
     public Kniffel getNeuesSpiel(@RequestBody ArrayList<Spieler> teilnehmer) {
