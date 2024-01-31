@@ -14,7 +14,7 @@ public class KniffelController {
     private KniffelService kniffelService;
 
     @PostMapping("/neuesSpielStarten")
-    public Kniffel getNeuesSpiel(@RequestBody ArrayList<Spieler> teilnehmer) {
+    public Kniffel postNeuesSpiel(@RequestBody ArrayList<Spieler> teilnehmer) {
         return kniffelService.spielStarten(teilnehmer);
     }
 }

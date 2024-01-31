@@ -17,4 +17,8 @@ public class KniffelService {
         spielliste.add(neuesKniffel);
         return neuesKniffel;
     }
+
+    public Kniffel getKniffel(Long kinffelId) {
+        return spielliste.stream().filter(kniffel -> kniffel.getId().equals(kinffelId)).findFirst().get();
+    }
 }
