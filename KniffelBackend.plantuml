@@ -1,0 +1,78 @@
+@startuml
+
+!theme plain
+top to bottom direction
+hide circle
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class Block {
+  - nurEinsen: Integer
+  - nurZweier: Integer
+  - nurDreier: Integer
+  - nurVierer: Integer
+  - nurFuenfer: Integer
+  - nurSechser: Integer
+  - bonus: Integer
+  - dreierPasch: Integer
+  - viererPasch: Integer
+  - fullHouse: Integer
+  - kleineStrasse: Integer
+  - grosseStrasse: Integer
+  - kniffel: Integer
+  - chance: Integer
+}
+class Kniffel {
+  - id: Long
+  - aktiverSpielerIndex: int
+  - wuerfel: List<Integer>
+  - runde: int
+  - uebrigeWuerfe: int
+}
+class KniffelController {
+  + postNeuesSpiel(ArrayList<Spieler>): Kniffel
+}
+class KniffelService {
+  + spielStarten(ArrayList<Spieler>): Kniffel
+  + findeKniffel(Long): Kniffel
+}
+class Spieler {
+  - siege: int
+  - punktestand: int
+  - block: Block
+  - name: String
+  - spielerId: Long
+}
+class SpielerController {
+  + postSpieler(String): Spieler
+  + namenAendern(Long, Long, String): Spieler
+  + postWurf(List<Integer> wurf): Block
+}
+class SpielerService {
+  + namenAendern(Long, Long, String): Spieler
+  + neuerSpieler(String): Spieler
+  + wurfEintragen(List<Integer> wurf): Block
+}
+
+class BlockService {
+  + punkteVorberechnen(): Block
+  + eintragen(List<Integer> wurf): Block
+}
+
+class BlockController {
+  + getVorberechnetePunkte(): Block
+}
+
+Kniffel           "1  " -[#595959,plain]-> "*" Spieler
+KniffelController "1    " -[#595959,plain]-> "1" KniffelService
+KniffelService     -[#595959,dashed]->  Kniffel
+KniffelService    "1 " -[#595959,plain]-> " * " Kniffel
+SpielerService    "1    " -[#595959,plain]-> " 1 " BlockService
+BlockService    -[#595959,dashed]-> Block
+BlockController "1" -[#595959,plain]-> "1" BlockService
+Spieler            -[#595959,dashed]->  Block
+Spieler           "1 " -[#595959,plain]-> "1 " Block
+SpielerController "1" -[#595959,plain]-> "1" SpielerService
+SpielerService    "1" -[#595959,plain]-> "1     " KniffelService
+SpielerService     -[#595959,dashed]->  Spieler
+@enduml
