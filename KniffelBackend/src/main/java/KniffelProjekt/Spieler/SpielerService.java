@@ -1,11 +1,8 @@
 package KniffelProjekt.Spieler;
 
-import KniffelProjekt.Kniffel.Kniffel;
 import KniffelProjekt.Kniffel.KniffelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public class SpielerService {
@@ -21,7 +18,7 @@ public class SpielerService {
     }
 
     public Spieler namenAendern(Long kniffelId, Long spielerId, String neuerName) {
-        Spieler spieler = kniffelService.getKniffel(kniffelId)
+        Spieler spieler = kniffelService.findeKniffel(kniffelId)
                 .getTeilnehmer().stream().filter(teilnehmer -> teilnehmer.getSpielerId()
                         .equals(spielerId)).findFirst().get();
         spieler.setName(neuerName);
