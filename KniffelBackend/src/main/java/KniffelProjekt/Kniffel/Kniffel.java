@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @NoArgsConstructor
@@ -22,6 +20,7 @@ public class Kniffel {
     private int runde = 0;
     private int uebrigeWuerfe = 3;
     private List<Integer> wuerfel = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
+    private Set<Integer> freieWuerfel =new HashSet<>();
 
 
     // Konstruktor
