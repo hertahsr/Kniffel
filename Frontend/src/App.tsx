@@ -33,9 +33,25 @@ function App() {
   )
 }
 
+async function getNeuesSpiel() {
+    const response = await fetch("http://localhost:8080/kniffel/neuesSpielStarten", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: "Spieler 1",
+            block: undefined,
+            siege: 0,
+            punktestand: 0,
+        })
+    })
+    console.log(response.json())
+}
+
 function MyButton() {
     return (
-        <button>I'm a button</button>
+        <button onClick={getNeuesSpiel}>Spiel starten</button>
     );
 }
 
