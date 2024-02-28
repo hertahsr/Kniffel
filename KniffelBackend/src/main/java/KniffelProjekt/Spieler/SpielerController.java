@@ -14,8 +14,8 @@ public class SpielerController {
         return spielerService.neuerSpieler(name);
     }
 
-
-    @PostMapping("/kniffel/{kniffelId}/spieler/{spielerId}/namenAendern")
-    public Spieler namenAendern(@PathVariable Long kniffelId, @PathVariable Long spielerId, @RequestBody String neueNamen)
-    {return spielerService.namenAendern(kniffelId,spielerId,neueNamen);}
+    @PutMapping("/kniffel/{kniffelId}/spieler/{spielerId}/name")
+    public Spieler namenAendern(@PathVariable Long kniffelId, @PathVariable Long spielerId, @RequestBody String neuerName) {
+        return spielerService.namenAendern(kniffelId, spielerId, neuerName);
+    }
 }
