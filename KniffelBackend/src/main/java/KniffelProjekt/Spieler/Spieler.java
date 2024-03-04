@@ -1,6 +1,7 @@
 package KniffelProjekt.Spieler;
 
 import KniffelProjekt.Block.Block;
+import KniffelProjekt.Score.Score;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -11,4 +12,5 @@ public class Spieler {
     private int siege = 0;
     private int punktestand = 0;
     private Long spielerId;
+    private Score score;
 }

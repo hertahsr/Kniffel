@@ -1,8 +1,12 @@
 package KniffelProjekt.Spieler;
 
+import KniffelProjekt.Kniffel.Kniffel;
 import KniffelProjekt.Kniffel.KniffelService;
+import KniffelProjekt.Score.Score;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SpielerService {
@@ -24,5 +28,15 @@ public class SpielerService {
         spieler.setName(neuerName);
         return spieler;
     }
+
+
+//noch nicht klar wocher wir die kategorie importiren werden
+    public int score(Long kniffelId,String kategorie){
+        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
+        List<Integer> wuerfel=kniffel.getWuerfel();
+        Score score=new Score(kategorie,wuerfel);
+        return score.getScore();
+    }
+
 }
 
