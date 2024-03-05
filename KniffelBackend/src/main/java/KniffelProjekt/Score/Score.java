@@ -2,7 +2,11 @@ package KniffelProjekt.Score;
 
 import lombok.Getter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Getter
 public class Score {
     private int score=0;
@@ -62,17 +66,55 @@ public Score(String kategorie, List<Integer> wuerfel)
 
             case "BONUS"->bonusScore;
 
-            case "DREIERPASCH"->dreierPaschScore*wuerfel.stream()
-                    .mapToInt(Integer::intValue)
-                    .sum();
+            //needs review
+            case "DREIERPASCH" -> {int res=0;
+                if(wuerfel.stream()
+                        .collect(Collectors.groupingBy(i -> i, Collectors.counting()))
+                        .values()
+                        .stream()
+                        .anyMatch(count -> count >= 3))
+                {res=dreierPaschScore*wuerfel.stream()
+                        .mapToInt(Integer::intValue)
+                        .sum();}
+                yield res;
+            }
 
-            case "VIERERPASCH"->viererPaschScore*wuerfel.stream()
-                    .mapToInt(Integer::intValue)
-                    .sum();
+            case "VIERERPASCH"-> {int res=0;
+                if(wuerfel.stream()
+                        .collect(Collectors.groupingBy(i -> i, Collectors.counting()))
+                        .values()
+                        .stream()
+                        .anyMatch(count -> count >= 4))
+                {res=viererPaschScore * wuerfel.stream()
+                        .mapToInt(Integer::intValue)
+                        .sum();}
+                yield res;
+            }
+            case "FULLHOUSE"->{
+                int res=0;
+                Map<Integer, Long> frequencyMap = wuerfel.stream()
+                        .collect(Collectors.groupingBy(i -> i, Collectors.counting()));
 
-            case "FULLHOUSE"->fullHouseScore;
+                boolean hasSetOf3 = false;
+                boolean hasSetOf2 = false;
 
-            case "KLEINESTRASSE"->kleineStrasseScore;
+                for (Map.Entry<Integer, Long> entry : frequencyMap.entrySet()) {
+                    long count = entry.getValue();
+                    if (count >= 3) {
+                        hasSetOf3 = true;
+                    } else if (count >= 2) {
+                        hasSetOf2 = true;
+                    }
+                }
+                if( hasSetOf3 && hasSetOf2)
+                res=fullHouseScore;
+            yield res;
+            }
+
+            case "KLEINESTRASSE"->{
+                int res=0;
+                res=kleineStrasseScore;
+                yield res;}
 
             case "GROSSESTRASSE"->grosseStrasseScore;
 
