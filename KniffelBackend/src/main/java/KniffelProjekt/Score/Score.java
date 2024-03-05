@@ -2,9 +2,7 @@ package KniffelProjekt.Score;
 
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -97,13 +95,18 @@ public Score(String kategorie, List<Integer> wuerfel)
 
                 boolean hasSetOf3 = false;
                 boolean hasSetOf2 = false;
+                boolean flag=false;
 
                 for (Map.Entry<Integer, Long> entry : frequencyMap.entrySet()) {
                     long count = entry.getValue();
-                    if (count >= 3) {
-                        hasSetOf3 = true;
-                    } else if (count >= 2) {
+                    if (count >= 2) {
                         hasSetOf2 = true;
+                        if (count >= 3&& flag==false) {
+                            { hasSetOf3 = true;
+                                hasSetOf2=false;
+                                flag=true;
+                            }
+                        }
                     }
                 }
                 if( hasSetOf3 && hasSetOf2)
@@ -113,12 +116,39 @@ public Score(String kategorie, List<Integer> wuerfel)
 
             case "KLEINESTRASSE"->{
                 int res=0;
-                res=kleineStrasseScore;
+                if(wuerfel.stream().distinct().count() >= 4) {
+                    List<Integer> wuerfelC = new ArrayList<>(wuerfel);
+                    Collections.sort(wuerfelC);
+                    String s = wuerfelC.stream().distinct()
+                            .map(String::valueOf)
+                            .collect(Collectors.joining());
+                    if (s.contains("1234") ||
+                            s.contains("2345") ||
+                            s.contains("3456"))
+                        res = kleineStrasseScore;
+                }
                 yield res;}
 
-            case "GROSSESTRASSE"->grosseStrasseScore;
+            case "GROSSESTRASSE"->{
+                int res=0;
+                if(wuerfel.stream().distinct().count() >= 5) {
+                    List<Integer> wuerfelC = new ArrayList<>(wuerfel);
+                    Collections.sort(wuerfelC);
+                    String s = wuerfelC.stream().distinct()
+                            .map(String::valueOf)
+                            .collect(Collectors.joining());
+                    if (s.contains("12345") ||
+                            s.contains("23456"))
+                    res = grosseStrasseScore;
+                }
+                yield res;}
 
-            case "KNIFFEL"->kniffelScore;
+            case "KNIFFEL"->{
+                int res=0;
+                if(wuerfel.stream().distinct().count() == 6) {
+                    res = kniffelScore;
+                }
+                yield res;}
 
             case "CHANCE"->chanceScore*wuerfel.stream()
                     .mapToInt(Integer::intValue)
