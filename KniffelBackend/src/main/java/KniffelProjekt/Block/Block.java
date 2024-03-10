@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Block {
-    private Integer nurEinsen;
+    private Integer nurEinser;
     private Integer nurZweier;
     private Integer nurDreier;
     private Integer nurVierer;
-    private Integer nurFunfer;
+    private Integer nurFuenfer;
     private Integer nurSechser;
     private Integer bonus;
     private Integer dreierPasch;

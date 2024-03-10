@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 public class Score {
     private int score=0;
 
-    private final int nurEinsenScore=1;
+    private final int nurEinserScore=1;
     private final int nurZweierScore=2;
     private final int nurDreierScore=3;
     private final int nurViererScore=4;
-    private final int nurFunferScore=5;
+    private final int nurFuenferScore=5;
     private final int nurSechserScore=6;
     private final int bonusScore=35;
     private final int dreierPaschScore=1;
@@ -34,7 +34,7 @@ public Score(String kategorie, List<Integer> wuerfel)
     private int scoreBerechnen(String kategorie, List<Integer> wuerfel){
 
         int score= switch(kategorie) {
-            case "NUREINSEN"->nurEinsenScore*(int)wuerfel.stream()
+            case "NUREINSER"->nurEinserScore*(int)wuerfel.stream()
                     .filter(e->e==1)
                     .count();
                                 //wenn Zeit-ENUM
@@ -54,7 +54,7 @@ public Score(String kategorie, List<Integer> wuerfel)
                     .filter(e->e==4)
                     .count();
 
-            case "NURFUNFER"->nurFunferScore*(int)wuerfel.stream()
+            case "NURFUENFER"->nurFuenferScore*(int)wuerfel.stream()
                     .filter(e->e==5)
                     .count();
 
@@ -95,22 +95,18 @@ public Score(String kategorie, List<Integer> wuerfel)
 
                 boolean hasSetOf3 = false;
                 boolean hasSetOf2 = false;
-                boolean flag=false;
+//                boolean flag=false;
 
                 for (Map.Entry<Integer, Long> entry : frequencyMap.entrySet()) {
                     long count = entry.getValue();
-                    if (count >= 2) {
+                    if (count == 3) {
+                        hasSetOf3 = true;
+                    } else if (count == 2) {
                         hasSetOf2 = true;
-                        if (count >= 3&& flag==false) {
-                            { hasSetOf3 = true;
-                                hasSetOf2=false;
-                                flag=true;
-                            }
                         }
-                    }
                 }
                 if( hasSetOf3 && hasSetOf2)
-                res=fullHouseScore;
+                    res=fullHouseScore;
             yield res;
             }
 
@@ -139,13 +135,13 @@ public Score(String kategorie, List<Integer> wuerfel)
                             .collect(Collectors.joining());
                     if (s.contains("12345") ||
                             s.contains("23456"))
-                    res = grosseStrasseScore;
+                        res = grosseStrasseScore;
                 }
                 yield res;}
 
             case "KNIFFEL"->{
                 int res=0;
-                if(wuerfel.stream().distinct().count() == 6) {
+                if(wuerfel.stream().distinct().count() == 1) {
                     res = kniffelScore;
                 }
                 yield res;}
