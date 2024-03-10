@@ -1,5 +1,6 @@
 package KniffelProjekt.Kniffel;
 
+import KniffelProjekt.Block.Block;
 import KniffelProjekt.Spieler.Spieler;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +22,46 @@ public class Kniffel {
     private List<Integer> wuerfel = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
     private Set<Integer> freieWuerfel =new HashSet<>();
 
+    public void naechsterSpieler() {
 
+        if (aktiverSpielerIndex < teilnehmer.size() - 1) {
+            aktiverSpielerIndex++;
+        } else {
+            runde++;
+            if (runde >= 13) {
+                // Auswertung nur am Ende, da sonst letzte Spieler im Vorteil
+                auswertung();
+                return;
+            }
+            aktiverSpielerIndex = 0;
+        }
+        uebrigeWuerfe = 3;
+    }
+
+    public void auswertung() {
+
+        for (Spieler spieler : teilnehmer) {
+            Block block = spieler.getBlock();
+
+            // Berechnung oberer Teil
+            Integer punkteObererTeil = block.getNurEinser() + block.getNurZweier() + block.getNurDreier() +
+                    block.getNurVierer() + block.getNurFuenfer() + block.getNurSechser();
+            if (punkteObererTeil >= 63) {
+                block.setBonus(35);
+            }
+            Integer punkteOTMitBonus = punkteObererTeil + block.getBonus();
+            block.setPunkteObererTeil(punkteOTMitBonus);
+
+            // Berechnung unterer Teil
+            Integer punkteUntererTeil = block.getDreierPasch() + block.getViererPasch() + block.getFullHouse() +
+                    block.getKleineStrasse() + block.getGrosseStrasse() + block.getKniffel() + block.getChance();
+            block.setPunkteUntererTeil(punkteUntererTeil);
+
+            // Gesamtpunkte
+            Integer gesamtPunkte = block.getPunkteObererTeil() + block.getPunkteUntererTeil();
+            block.setGesamtPunkte(gesamtPunkte);
+        }
+    }
     // Konstruktor
 //    public Kniffel(List<Spieler> teilnehmer) {
 //        this.teilnehmer = teilnehmer;
