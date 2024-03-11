@@ -2,6 +2,7 @@ package KniffelProjekt.Kniffel;
 
 import KniffelProjekt.Block.Block;
 import KniffelProjekt.Spieler.Spieler;
+import KniffelProjekt.Wuerfe.Wurf;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,25 +63,21 @@ public class Kniffel {
             block.setGesamtPunkte(gesamtPunkte);
         }
     }
-    // Konstruktor
-//    public Kniffel(List<Spieler> teilnehmer) {
-//        this.teilnehmer = teilnehmer;
-//        this.aktiverSpieler = teilnehmer.get(0);
-//    }
-
-//    public List<Integer> wuerfeln() {
-//        List<Integer> retval = new ArrayList<Integer>();
-//        for (int i = 0; i < wuerfel.size(); i++) {
-//            int zahl = ThreadLocalRandom.current().nextInt(1, 7);
-//            retval.set(i, zahl);
-//        }
-//
-//        return retval;
-//    }
-
 
     public Spieler getAktiverSpieler()
     {
         return teilnehmer.get(aktiverSpielerIndex);
     }
+
+    public void wuerfelnMitFixWuerfeln(HashSet<Integer> freieWuerfel)
+    {
+        Wurf wurf=new Wurf(freieWuerfel);
+        int i=0;
+        for(Integer fW:freieWuerfel)
+        {
+            wuerfel.set(fW,wurf.getErgebnis().get(i));
+            i++;
+        }
+    }
+
 }

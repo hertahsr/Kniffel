@@ -33,43 +33,20 @@ public class Block {
     public void setKat(String kategorie, int scoreRes) {
 
         switch(kategorie) {
-            case "NUREINSER"-> {
-                nurEinser = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
+            case "NUREINSER"->  nurEinser = scoreRes;
 
-            case "NURZWEIER"-> {
-                nurZweier = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
 
-            case "NURDREIER"-> {
-                nurDreier = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
+            case "NURZWEIER"->  nurZweier = scoreRes;
 
-            case "NURVIERER"-> {
-                nurVierer = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
+            case "NURDREIER"-> nurDreier = scoreRes;
 
-            case "NURFUENFER"-> {
-                nurFuenfer = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
+            case "NURVIERER"-> nurVierer = scoreRes;
 
-            case "NURSECHSER"-> {
-                nurSechser = scoreRes;
-                if(oberSum()>62)
-                {bonus=35;}
-            }
+            case "NURFUENFER"-> nurFuenfer = scoreRes;
 
-           // case "BONUS"->bonus; //Logik hier
+            case "NURSECHSER"->nurSechser = scoreRes;
+
+           // case "BONUS"->bonus; //Logik in Kniffel
 
 
             case "DREIERPASCH" -> dreierPasch=scoreRes;
@@ -89,10 +66,7 @@ public class Block {
             default -> throw new IllegalStateException("Unexpected value: " + kategorie);
         };
     }
-
-    private int oberSum() {
-        return nurEinser+ nurZweier+ nurDreier+ nurVierer+ nurFuenfer+ nurSechser;
-    }
+    
 
 //    public int gesamtOTeil()
 //    { int sum=0;

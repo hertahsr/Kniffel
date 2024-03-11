@@ -20,7 +20,7 @@ public class ScoreController {
 
     private KniffelService kniffelService;
     @PostMapping()
-    public Spieler getSpieler(Long kniffelID){
+    public Spieler getASpieler(Long kniffelID){
         Kniffel kniffel = kniffelService.findeKniffel(kniffelID);
           return kniffel.getAktiverSpieler();
 
