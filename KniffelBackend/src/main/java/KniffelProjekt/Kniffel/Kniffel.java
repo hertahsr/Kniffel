@@ -77,4 +77,10 @@ public class Kniffel {
 //
 //        return retval;
 //    }
+
+
+    public Spieler getAktiverSpieler()
+    {
+        return teilnehmer.get(aktiverSpielerIndex);
+    }
 }

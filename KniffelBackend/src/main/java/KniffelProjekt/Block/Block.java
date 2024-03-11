@@ -3,6 +3,12 @@ package KniffelProjekt.Block;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 public class Block {
@@ -24,6 +30,70 @@ public class Block {
     private Integer punkteUntererTeil;
     private Integer gesamtPunkte;
 
+    public void setKat(String kategorie, int scoreRes) {
+
+        switch(kategorie) {
+            case "NUREINSER"-> {
+                nurEinser = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+            case "NURZWEIER"-> {
+                nurZweier = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+            case "NURDREIER"-> {
+                nurDreier = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+            case "NURVIERER"-> {
+                nurVierer = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+            case "NURFUENFER"-> {
+                nurFuenfer = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+            case "NURSECHSER"-> {
+                nurSechser = scoreRes;
+                if(oberSum()>62)
+                {bonus=35;}
+            }
+
+           // case "BONUS"->bonus; //Logik hier
+
+
+            case "DREIERPASCH" -> dreierPasch=scoreRes;
+
+            case "VIERERPASCH"-> viererPasch=scoreRes;
+            case "FULLHOUSE"->fullHouse=scoreRes;
+
+            case "KLEINESTRASSE"->kleineStrasse=scoreRes;
+
+            case "GROSSESTRASSE"->grosseStrasse=scoreRes;
+
+            case "KNIFFEL"->kniffel=scoreRes;
+
+            case "CHANCE"->chance=scoreRes;
+
+
+            default -> throw new IllegalStateException("Unexpected value: " + kategorie);
+        };
+    }
+
+    private int oberSum() {
+        return nurEinser+ nurZweier+ nurDreier+ nurVierer+ nurFuenfer+ nurSechser;
+    }
+
 //    public int gesamtOTeil()
 //    { int sum=0;
 //
@@ -41,4 +111,6 @@ public class Block {
 //        sum=dreierP+viererP+full+kleineS+
 //                grosseS+kniffel+chance;
 //        return sum;}
+
+
 }

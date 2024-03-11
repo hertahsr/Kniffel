@@ -3,7 +3,6 @@ package KniffelProjekt.Score;
 import KniffelProjekt.Kniffel.Kniffel;
 import KniffelProjekt.Kniffel.KniffelService;
 import KniffelProjekt.Spieler.Spieler;
-import KniffelProjekt.Spieler.SpielerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +18,12 @@ public class ScoreController {
         return score.getScore();
     }
 
+    private KniffelService kniffelService;
+    @PostMapping()
+    public Spieler getSpieler(Long kniffelID){
+        Kniffel kniffel = kniffelService.findeKniffel(kniffelID);
+          return kniffel.getAktiverSpieler();
 
 
+    }
 }
