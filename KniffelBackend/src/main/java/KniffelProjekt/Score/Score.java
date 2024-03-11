@@ -1,6 +1,9 @@
 package KniffelProjekt.Score;
 
+import KniffelProjekt.Kniffel.Kniffel;
+import KniffelProjekt.Kniffel.KniffelService;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,10 +30,17 @@ public class Score {
 
     //}
 
-public Score(String kategorie, List<Integer> wuerfel)
+    @Autowired
+    private KniffelService kniffelService;
+
+public Score(String kategorie, List<Integer> wuerfel,Long kniffelID)
 {
     this.score=scoreBerechnen(kategorie, wuerfel);
+    scoreEintragen(kategorie, score, kniffelID);
 }
+
+
+
     private int scoreBerechnen(String kategorie, List<Integer> wuerfel){
 
         int score= switch(kategorie) {
@@ -156,6 +166,9 @@ public Score(String kategorie, List<Integer> wuerfel)
         return score;
     }
 
-
+    private void scoreEintragen(String kategorie, int score, Long kniffelId) {
+        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
+        kniffel.getAktiverSpieler().getBlock().setKat(kategorie,this.score);
+    }
 
 }
