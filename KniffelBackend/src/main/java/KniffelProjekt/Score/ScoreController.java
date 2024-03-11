@@ -12,18 +12,12 @@ import java.util.List;
 public class ScoreController {
 
     @PostMapping
-    public int score(String kategorie,List<Integer> wuerfel)
+    public int score(String kategorie,List<Integer> wuerfel,Long kniffelId)
     {
-        Score score=new Score(kategorie,wuerfel);
+        Score score=new Score(kategorie,wuerfel,kniffelId);
         return score.getScore();
     }
 
-    private KniffelService kniffelService;
-    @PostMapping()
-    public Spieler getASpieler(Long kniffelID){
-        Kniffel kniffel = kniffelService.findeKniffel(kniffelID);
-          return kniffel.getAktiverSpieler();
 
 
-    }
 }

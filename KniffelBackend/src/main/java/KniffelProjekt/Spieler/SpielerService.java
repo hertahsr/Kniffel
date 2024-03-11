@@ -30,21 +30,5 @@ public class SpielerService {
     }
 
 
-
-    public int score(Long kniffelId,String kategorie){
-        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
-        List<Integer> wuerfel=kniffel.getWuerfel();
-        Score score=new Score(kategorie,wuerfel);
-        return score.getScore();
-    }
-
-
-    private void scoreEintragen(Long kniffelId,String kategorie,List<Integer> wuerfel){
-        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
-        Score score=new Score(kategorie,wuerfel);
-        int scoreRes=score.getScore();
-        kniffel.getAktiverSpieler().getBlock().setKat(kategorie,scoreRes);
-    }
-
 }
 
