@@ -1,6 +1,7 @@
 import viteLogo from "../assets/vite.svg";
 import reactLogo from "../assets/react.svg";
 import {useNavigate} from "react-router-dom";
+import useIdStore from "../Store.ts";
 
 function Home() {
     return (
@@ -54,9 +55,11 @@ async function getNeuesSpiel() {
 
 function MyButton() {
     const navigate = useNavigate();
+    const idStore = useIdStore()
     return (
         <button onClick={async () => {
             const kniffel = await getNeuesSpiel()
+            idStore.id = kniffel.id
             navigate("/Kniffel", {state: {kniffel: kniffel}})
         }}>Spiel starten</button>
     );

@@ -1,24 +1,22 @@
 import {useRef} from "react";
+import {post} from "../api/Api.ts";
+import useIdStore from "../Store.ts";
 
 function Wuerfel() {
+    const idStore = useIdStore()
     const diceOneRef = useRef(null)
     const diceTwoRef = useRef(null)
     const diceThreeRef = useRef(null)
     const diceFourRef = useRef(null)
     const diceFiveRef = useRef(null)
 
-    function rollDice() {
-
-        let diceOne = Math.floor((Math.random() * 6) + 1)
-        let diceTwo = Math.floor((Math.random() * 6) + 1)
-        let diceThree = Math.floor((Math.random() * 6) + 1)
-        let diceFour = Math.floor((Math.random() * 6) + 1)
-        let diceFive = Math.floor((Math.random() * 6) + 1)
-        diceOneRef.current.className = "dice dice-one show-" + diceOne
-        diceTwoRef.current.className = "dice dice-two show-" + diceTwo
-        diceThreeRef.current.className = "dice dice-three show-" + diceThree
-        diceFourRef.current.className = "dice dice-four show-" + diceFour
-        diceFiveRef.current.className = "dice dice-five show-" + diceFive
+    async function rollDice() {
+        const result = await post<number, number[]>("http://localhost:8080/wuerfe", idStore.id)
+        diceOneRef.current.className = "dice dice-one show-" + result[0]
+        diceTwoRef.current.className = "dice dice-two show-" + result[1]
+        diceThreeRef.current.className = "dice dice-three show-" + result[2]
+        diceFourRef.current.className = "dice dice-four show-" + result[3]
+        diceFiveRef.current.className = "dice dice-five show-" + result[4]
     }
 
     return (
