@@ -11,13 +11,19 @@ import java.util.List;
 @RestController
 public class ScoreController {
 
+    private KniffelService kniffelService;
+
     @PostMapping
     public int score(String kategorie,List<Integer> wuerfel,Long kniffelId)
     {
-        Score score=new Score(kategorie,wuerfel,kniffelId);
+        Score score=new Score(kategorie,wuerfel);
+        scoreEintragen(kategorie, score.getScore(), kniffelId);
         return score.getScore();
     }
 
-
+    private void scoreEintragen(String kategorie, int score, Long kniffelId) {
+        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
+        kniffel.getAktiverSpieler().getBlock().setKat(kategorie,score);
+    }
 
 }

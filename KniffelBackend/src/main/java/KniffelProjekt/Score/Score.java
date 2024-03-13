@@ -30,13 +30,12 @@ public class Score {
 
     //}
 
-    @Autowired
-    private KniffelService kniffelService;
 
-public Score(String kategorie, List<Integer> wuerfel,Long kniffelID)
+
+public Score(String kategorie, List<Integer> wuerfel)
 {
     this.score=scoreBerechnen(kategorie, wuerfel);
-    scoreEintragen(kategorie, score, kniffelID);
+
 }
 
 
@@ -166,9 +165,6 @@ public Score(String kategorie, List<Integer> wuerfel,Long kniffelID)
         return score;
     }
 
-    private void scoreEintragen(String kategorie, int score, Long kniffelId) {
-        Kniffel kniffel= kniffelService.findeKniffel(kniffelId);
-        kniffel.getAktiverSpieler().getBlock().setKat(kategorie,this.score);
-    }
+
 
 }
