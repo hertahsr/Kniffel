@@ -49,15 +49,15 @@ async function getNeuesSpiel() {
         },
         body: JSON.stringify(spieler)
     })
-    console.log(response.json())
+    return await response.json() as Promise<Kniffel>
 }
 
 function MyButton() {
     const navigate = useNavigate();
     return (
-        <button onClick={() => {
-            getNeuesSpiel()
-            navigate("/Kniffel")
+        <button onClick={async () => {
+            const kniffel = await getNeuesSpiel()
+            navigate("/Kniffel", {state: {kniffel: kniffel}})
         }}>Spiel starten</button>
     );
 }

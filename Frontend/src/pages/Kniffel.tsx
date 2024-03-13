@@ -1,35 +1,57 @@
-function Kniffel(kniffel: any) {
+import Wuerfel from "./Wuerfel.tsx";
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import Grid from '@mui/material/Unstable_Grid2';
+import {useLocation} from "react-router-dom";
+
+function Kniffel() {
+    const {state} = useLocation()
+    const kniffel = state.kniffel
     return (
         <>
-            <div>
-                <Block spieler={kniffel.spieler}/>
-            </div>
+            <Grid container spacing={2}>
+                <Grid xs={3}>
+                    <BlockComponent block={kniffel.teilnehmer[0].block}/>
+                </Grid>
+                <Grid xs={3}>
+                    <BlockComponent block={kniffel.teilnehmer[0].block}/>
+                </Grid>
+                <Grid xs={6}>
+                    <Wuerfel/>
+                </Grid>
+            </Grid>
         </>
     )
 }
 
-function Block(spieler: any) {
-    const items = [1, 2, 3, 4, 5, 6]
-    const block = items.map(item =>
-        <tr>
-            <td key={item}>{item}</td>
-            <td>0</td>
-        </tr>
-    )
-    return (
+function BlockComponent(props: { block: Block; }) {
+    const block = props.block
+    const blockElement =
         <>
-            <table>
-                <thead>
-                <tr>
-                    <th colSpan={2}>Spieler 1</th>
-                </tr>
-                </thead>
-                <tbody>
-                {block}
-                </tbody>
-            </table>
-
+            <Table sx={{minWidth: 150}} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>{"Spieler " + 1}</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {Object.entries(block).map((category) => (
+                        <TableRow
+                            key={category[0]}
+                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                        >
+                            <TableCell component="th" scope="row">
+                                {category[0]}
+                            </TableCell>
+                            <TableCell align="right">{category[1]}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </>
+    return (
+        <TableContainer>
+            {blockElement}
+        </TableContainer>
     )
 }
 
