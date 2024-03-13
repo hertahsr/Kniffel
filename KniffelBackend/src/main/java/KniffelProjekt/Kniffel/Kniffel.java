@@ -21,7 +21,7 @@ public class Kniffel {
     private int runde = 0;
     private int uebrigeWuerfe = 3;
     private List<Integer> wuerfel = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
-    private Set<Integer> freieWuerfel =new HashSet<>();
+    private Set<Integer> freieWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
 
     public void naechsterSpieler() {
 
@@ -64,30 +64,24 @@ public class Kniffel {
         }
     }
 
-    public Spieler getAktiverSpieler()
-    {
+    public Spieler getAktiverSpieler() {
         return teilnehmer.get(aktiverSpielerIndex);
     }
 
-    public void wuerfelnMitFixWuerfeln(HashSet<Integer> freieWuerfel)
-    {
-        Wurf wurf=new Wurf(freieWuerfel);
-        int i=0;
-        for(Integer fW:freieWuerfel)
-        {
-            wuerfel.set(fW,wurf.getErgebnis().get(i));
+    public void wuerfelnMitFixWuerfeln(HashSet<Integer> freieWuerfel) {
+        Wurf wurf = new Wurf(freieWuerfel);
+        int i = 0;
+        for (Integer fW : freieWuerfel) {
+            wuerfel.set(fW, wurf.getErgebnis().get(i));
             i++;
         }
     }
 
 
-    public void wuerfelFixieren(HashSet<Integer> fixierteWuerfel)
-    {
-        Set<Integer> fW=new HashSet<>();
-        for(int i=1;i<=6;i++)
-        {
-            if(!fixierteWuerfel.contains(i))
-            {
+    public void wuerfelFixieren(HashSet<Integer> fixierteWuerfel) {
+        Set<Integer> fW = new HashSet<>();
+        for (int i = 1; i <= 6; i++) {
+            if (!fixierteWuerfel.contains(i)) {
                 fW.add(i);
             }
         }

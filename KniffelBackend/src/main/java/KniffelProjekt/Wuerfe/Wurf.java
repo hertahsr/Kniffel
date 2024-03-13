@@ -14,11 +14,11 @@ import java.util.Set;
 @Getter
 public class Wurf {
 
-   public  List<Integer> ergebnis;
-    public Wurf(Set<Integer> freieWuerfel)
-    {
-        Random rand= new Random();
-        ergebnis= rand.ints(freieWuerfel.size(), 1,6).boxed().toList();
+    public List<Integer> ergebnis;
+
+    public Wurf(Set<Integer> freieWuerfel) {
+        Random rand = new Random();
+        ergebnis = rand.ints(freieWuerfel.size(), 1, 7).boxed().toList();
 
     }
 
