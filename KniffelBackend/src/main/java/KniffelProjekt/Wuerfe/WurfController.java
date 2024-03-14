@@ -25,7 +25,6 @@ public class WurfController {
         Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
         Wurf wurf = new Wurf(freieWuerfel);
         return wurf.getErgebnis();
-
     }
 
 }
