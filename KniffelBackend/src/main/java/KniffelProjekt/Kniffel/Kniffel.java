@@ -77,6 +77,14 @@ public class Kniffel {
         }
     }
 
+    public void wuerfelStatusAendern(int wuerfel)
+    {
+        if(freieWuerfel.contains(wuerfel))
+        { wuerfelFixieren(wuerfel); }
+        else{
+            wuerfelUnFixieren(wuerfel);
+        }
+    }
 
     private void wuerfelFixieren(int fixierteWuerfel) {
         freieWuerfel.removeIf(w -> w == fixierteWuerfel);
