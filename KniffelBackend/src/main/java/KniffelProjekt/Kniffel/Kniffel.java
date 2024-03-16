@@ -15,8 +15,8 @@ import java.util.*;
 @Getter
 @Setter
 public class Kniffel {
-    final int maxWuerfe = 3;
-    final Set<Integer> alleWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
+    private final int maxWuerfe = 3;
+    private final Set<Integer> alleWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
 
     private Long id;
     private List<Spieler> teilnehmer;

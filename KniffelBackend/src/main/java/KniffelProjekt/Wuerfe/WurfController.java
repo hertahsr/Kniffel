@@ -22,9 +22,12 @@ public class WurfController {
     @PostMapping()
     public List<Integer> wuerfeln(@RequestBody Long kniffelID) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelID);
-        Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
+        if(kniffel.getUebrigeWuerfe()!=0)
+        {Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
         Wurf wurf = new Wurf(freieWuerfel);
-        return wurf.getErgebnis();
+        return wurf.getErgebnis();}
+
+        return kniffel.getWuerfel();//return das letzte Ergebnis
     }
 
 }
