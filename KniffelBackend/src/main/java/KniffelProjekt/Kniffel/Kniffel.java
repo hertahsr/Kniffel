@@ -78,14 +78,12 @@ public class Kniffel {
     }
 
 
-    public void wuerfelFixieren(HashSet<Integer> fixierteWuerfel) {
-        Set<Integer> fW = new HashSet<>();
-        for (int i = 1; i <= 6; i++) {
-            if (!fixierteWuerfel.contains(i)) {
-                fW.add(i);
-            }
-        }
-
-        this.setFreieWuerfel(fW);
+    private void wuerfelFixieren(int fixierteWuerfel) {
+        freieWuerfel.removeIf(w -> w == fixierteWuerfel);
     }
+
+    private void wuerfelUnFixieren(int unfixierteWuerfel) {
+        freieWuerfel.add(unfixierteWuerfel);
+    }
+
 }
