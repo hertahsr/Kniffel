@@ -15,11 +15,14 @@ import java.util.*;
 @Getter
 @Setter
 public class Kniffel {
+    final int maxWuerfe = 3;
+    final Set<Integer> alleWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
+
     private Long id;
     private List<Spieler> teilnehmer;
     private int aktiverSpielerIndex = 0;
     private int runde = 0;
-    private int uebrigeWuerfe = 3;
+    private int uebrigeWuerfe = maxWuerfe;
     private List<Integer> wuerfel = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
     private Set<Integer> freieWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
 
@@ -36,7 +39,9 @@ public class Kniffel {
             }
             aktiverSpielerIndex = 0;
         }
-        uebrigeWuerfe = 3;
+        uebrigeWuerfe = getMaxWuerfe();
+        freieWuerfel = new HashSet<>(alleWuerfel);//alle Wuerfel unfixieren beim Spielerwaechsel
+
     }
 
     public void auswertung() {
@@ -77,11 +82,10 @@ public class Kniffel {
         }
     }
 
-    public void wuerfelStatusAendern(int wuerfel)
-    {
-        if(freieWuerfel.contains(wuerfel))
-        { wuerfelFixieren(wuerfel); }
-        else{
+    public void wuerfelStatusAendern(int wuerfel) {
+        if (freieWuerfel.contains(wuerfel)) {
+            wuerfelFixieren(wuerfel);
+        } else {
             wuerfelUnFixieren(wuerfel);
         }
     }
