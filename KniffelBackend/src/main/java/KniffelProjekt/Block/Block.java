@@ -3,10 +3,8 @@ package KniffelProjekt.Block;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Getter
@@ -30,61 +28,143 @@ public class Block {
     private Integer punkteUntererTeil;
     private Integer gesamtPunkte;
 
+    private HashSet<String> einmalEintrag = new HashSet<>();
+
+
     public void setKat(String kategorie, int scoreRes) {
 
-        switch(kategorie) {
-            case "NUREINSER"->  nurEinser = scoreRes;
+        switch (kategorie) {
+            case "NUREINSER" -> {
+                if (!einmalEintrag.contains("NUREINSER")) {
+                    nurEinser = scoreRes;
+                    einmalEintrag.add("NUREINSER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
+            case "NURZWEIER" -> {
+                if (!einmalEintrag.contains("NURZWEIER")) {
+                    nurZweier = scoreRes;
+                    einmalEintrag.add("NURZWEIER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "NURZWEIER"->  nurZweier = scoreRes;
+            case "NURDREIER" -> {
+                if (!einmalEintrag.contains("NURDREIER")) {
+                    nurDreier = scoreRes;
+                    einmalEintrag.add("NURDREIER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "NURDREIER"-> nurDreier = scoreRes;
+            case "NURVIERER" -> {
+                if (!einmalEintrag.contains("NURVIERER")) {
+                    nurVierer = scoreRes;
+                    einmalEintrag.add("NURVIERER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "NURVIERER"-> nurVierer = scoreRes;
+            case "NURFUENFER" -> {
+                if (!einmalEintrag.contains("NURFUENFER")) {
+                    nurFuenfer = scoreRes;
+                    einmalEintrag.add("NURFUENFER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "NURFUENFER"-> nurFuenfer = scoreRes;
+            case "NURSECHSER" -> {
+                if (!einmalEintrag.contains("NURSECHSER")) {
+                    nurSechser = scoreRes;
+                    einmalEintrag.add("NURSECHSER");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "NURSECHSER"->nurSechser = scoreRes;
+            // muss ueberprueft werden! //Logik in Kniffel
+            case "BONUS" -> {
+                if (!einmalEintrag.contains("BONUS")) {
+                    bonus = 35;
+                    einmalEintrag.add("BONUS");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-           // case "BONUS"->bonus; //Logik in Kniffel
+            case "DREIERPASCH" -> {
+                if (!einmalEintrag.contains("DREIERPASCH")) {
+                    dreierPasch = scoreRes;
+                    einmalEintrag.add("DREIERPASCH");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
+            case "VIERERPASCH" -> {
+                if (!einmalEintrag.contains("VIERERPASCH")) {
+                    viererPasch = scoreRes;
+                    einmalEintrag.add("VIERERPASCH");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "DREIERPASCH" -> dreierPasch=scoreRes;
+            case "FULLHOUSE" -> {
+                if (!einmalEintrag.contains("FULLHOUSE")) {
+                    fullHouse = scoreRes;
+                    einmalEintrag.add("FULLHOUSE");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "VIERERPASCH"-> viererPasch=scoreRes;
-            case "FULLHOUSE"->fullHouse=scoreRes;
+            case "KLEINESTRASSE" -> {
+                if (!einmalEintrag.contains("KLEINESTRASSE")) {
+                    kleineStrasse = scoreRes;
+                    einmalEintrag.add("KLEINESTRASSE");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "KLEINESTRASSE"->kleineStrasse=scoreRes;
+            case "GROSSESTRASSE" -> {
+                if (!einmalEintrag.contains("GROSSESTRASSE")) {
+                    grosseStrasse = scoreRes;
+                    einmalEintrag.add("GROSSESTRASSE");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "GROSSESTRASSE"->grosseStrasse=scoreRes;
+            case "KNIFFEL" -> {
+                if (!einmalEintrag.contains("KNIFFEL")) {
+                    kniffel = scoreRes;
+                    einmalEintrag.add("KNIFFEL");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
-            case "KNIFFEL"->kniffel=scoreRes;
-
-            case "CHANCE"->chance=scoreRes;
-
+            case "CHANCE" -> {
+                if (!einmalEintrag.contains("CHANCE")) {
+                    chance = scoreRes;
+                    einmalEintrag.add("CHANCE");
+                } else {
+                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
+                }
+            }
 
             default -> throw new IllegalStateException("Unexpected value: " + kategorie);
-        };
+        }
+        ;
     }
-    
-
-//    public int gesamtOTeil()
-//    { int sum=0;
-//
-//        sum=nurEinsen+nurZweier+nurDreier+
-//                nurVierer+nurFunfer+nurSechser;
-//        if(sum>=63)
-//        {
-//            chance=35;
-//            sum+=35;
-//        }
-//
-//        return sum;}
-//    public int gesamtUTeil()
-//    { int sum=0;
-//        sum=dreierP+viererP+full+kleineS+
-//                grosseS+kniffel+chance;
-//        return sum;}
 
 
 }

@@ -73,7 +73,7 @@ public class Kniffel {
         return teilnehmer.get(aktiverSpielerIndex);
     }
 
-    public void wuerfelnMitFixWuerfeln(HashSet<Integer> freieWuerfel) {
+    /*public void wuerfelnMitFixWuerfeln(HashSet<Integer> freieWuerfel) {
         Wurf wurf = new Wurf(freieWuerfel);
         int i = 0;
         for (Integer fW : freieWuerfel) {
@@ -81,7 +81,7 @@ public class Kniffel {
             i++;
         }
     }
-
+*/
     public void wuerfelStatusAendern(int wuerfel) {
         if (freieWuerfel.contains(wuerfel)) {
             wuerfelFixieren(wuerfel);
