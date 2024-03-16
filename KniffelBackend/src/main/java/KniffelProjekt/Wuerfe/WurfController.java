@@ -25,6 +25,7 @@ public class WurfController {
         if(kniffel.getUebrigeWuerfe()!=0)
         {Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
         Wurf wurf = new Wurf(freieWuerfel);
+        kniffel.setUebrigeWuerfe(kniffel.getUebrigeWuerfe()-1);
         return wurf.getErgebnis();}
 
         return kniffel.getWuerfel();//return das letzte Ergebnis
