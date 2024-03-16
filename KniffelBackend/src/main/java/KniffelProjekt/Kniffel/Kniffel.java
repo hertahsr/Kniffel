@@ -2,7 +2,6 @@ package KniffelProjekt.Kniffel;
 
 import KniffelProjekt.Block.Block;
 import KniffelProjekt.Spieler.Spieler;
-import KniffelProjekt.Wuerfe.Wurf;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,9 @@ import java.util.*;
 public class Kniffel {
     private final int maxWuerfe = 3;
     private final Set<Integer> alleWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
+    private final Integer bonusGrenze = 63;
+    private final Integer bonusScore = 35;
+    private final int anzahlRunden = 13;
 
     private Long id;
     private List<Spieler> teilnehmer;
@@ -32,15 +34,14 @@ public class Kniffel {
             aktiverSpielerIndex++;
         } else {
             runde++;
-            if (runde >= 13) {
-                // Auswertung nur am Ende, da sonst letzte Spieler im Vorteil
-                auswertung();
+            if (runde >= anzahlRunden) {
+                // Sieger feststellen Spiel beenden
                 return;
             }
             aktiverSpielerIndex = 0;
         }
         uebrigeWuerfe = getMaxWuerfe();
-        freieWuerfel = new HashSet<>(alleWuerfel);//alle Wuerfel unfixieren beim Spielerwaechsel
+        freieWuerfel = new HashSet<>(alleWuerfel);  //alle Wuerfel unfixieren beim Spielerwechsel
 
     }
 
@@ -50,23 +51,53 @@ public class Kniffel {
             Block block = spieler.getBlock();
 
             // Berechnung oberer Teil
-            Integer punkteObererTeil = block.getNurEinser() + block.getNurZweier() + block.getNurDreier() +
-                    block.getNurVierer() + block.getNurFuenfer() + block.getNurSechser();
-            if (punkteObererTeil >= 63) {
-                block.setBonus(35);
+            Integer punkteObererTeil = getPunkteObererTeil(block);
+            block.setPunkteUntererTeil(punkteObererTeil);
+
+            // Berechnung Bonus
+            if (punkteObererTeil >= bonusGrenze) {
+                block.setBonus(bonusScore);
+            } else {
+                block.setBonus(0);
             }
+
+            // Berechnung oberer Teil mit Bonus
             Integer punkteOTMitBonus = punkteObererTeil + block.getBonus();
             block.setPunkteObererTeil(punkteOTMitBonus);
 
             // Berechnung unterer Teil
-            Integer punkteUntererTeil = block.getDreierPasch() + block.getViererPasch() + block.getFullHouse() +
-                    block.getKleineStrasse() + block.getGrosseStrasse() + block.getKniffel() + block.getChance();
+            Integer punkteUntererTeil = getPunkteUntererTeil(block);
             block.setPunkteUntererTeil(punkteUntererTeil);
 
-            // Gesamtpunkte
+            // Berechnung Gesamtpunkte
             Integer gesamtPunkte = block.getPunkteObererTeil() + block.getPunkteUntererTeil();
             block.setGesamtPunkte(gesamtPunkte);
         }
+    }
+    private static Integer getPunkteObererTeil(Block block) {
+        List<Integer> obererTeil =
+                new ArrayList<>(Arrays.asList(block.getNurEinser(), block.getNurZweier(), block.getNurDreier(),
+                        block.getNurVierer(), block.getNurFuenfer(), block.getNurSechser()));
+        Integer punkteObererTeil = 0;
+        for (Integer eintrag : obererTeil) {
+            if (eintrag != null) {
+                punkteObererTeil += eintrag;
+            }
+        }
+        return punkteObererTeil;
+    }
+
+    private static Integer getPunkteUntererTeil(Block block) {
+        List<Integer> untererTeil =
+                new ArrayList<>(Arrays.asList(block.getDreierPasch(), block.getViererPasch(), block.getFullHouse(),
+                        block.getKleineStrasse(), block.getGrosseStrasse(), block.getKniffel(), block.getChance()));
+        Integer punkteUntererTeil = 0;
+        for (Integer eintrag : untererTeil) {
+            if (eintrag != null) {
+                punkteUntererTeil += eintrag;
+            }
+        }
+        return punkteUntererTeil;
     }
 
     public Spieler getAktiverSpieler() {

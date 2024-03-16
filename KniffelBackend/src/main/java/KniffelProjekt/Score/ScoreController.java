@@ -2,15 +2,11 @@ package KniffelProjekt.Score;
 
 import KniffelProjekt.Kniffel.Kniffel;
 import KniffelProjekt.Kniffel.KniffelService;
-import KniffelProjekt.Spieler.Spieler;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -28,8 +24,11 @@ public class ScoreController {
 
     private void scoreEintragen(String kategorie, int score, Long kniffelId) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
-        if(kniffel.getUebrigeWuerfe()!=3)//kein Eintragen bevor der Spieler gewuerfelt hat
-        {kniffel.getAktiverSpieler().getBlock().setKat(kategorie, score);}
+        //kein Eintragen bevor der Spieler gewuerfelt hat
+        if(kniffel.getUebrigeWuerfe()!=3) {
+            kniffel.getAktiverSpieler().getBlock().setKat(kategorie, score);
+            kniffel.auswertung();
+        }
     }
 
 }
