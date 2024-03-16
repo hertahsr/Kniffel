@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,8 +24,21 @@ public class WurfController {
         if (kniffel.getUebrigeWuerfe() != 0) {
             Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
             Wurf wurf = new Wurf(freieWuerfel);
+            List<Integer> wurfErgebnis = wurf.getErgebnis();
+
+            // uebrigeWuerfe in Kniffel-Klasse heruntersetzen
             kniffel.setUebrigeWuerfe(kniffel.getUebrigeWuerfe() - 1);
-            return wurf.getErgebnis();
+
+            // neuen Wurf an Kniffel-Klasse uebergeben
+            List<Integer> neueWuerfel = kniffel.getWuerfel();
+            int indexWurfErgebnis = 0;
+            for (Integer FW : freieWuerfel) {
+                neueWuerfel.set(FW - 1, wurfErgebnis.get(indexWurfErgebnis));
+                indexWurfErgebnis++;
+            }
+            kniffel.setWuerfel(neueWuerfel);
+
+            return wurfErgebnis;
         }
 
         return kniffel.getWuerfel();//return das letzte Ergebnis
