@@ -30,7 +30,6 @@ public class Block {
     @JsonIgnore
     private HashSet<String> einmalEintrag = new HashSet<>();
 
-
     public void setKat(String kategorie, int scoreRes) {
 
         switch (kategorie) {
@@ -42,7 +41,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "NURZWEIER" -> {
                 if (!einmalEintrag.contains("NURZWEIER")) {
                     nurZweier = scoreRes;
@@ -51,7 +49,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "NURDREIER" -> {
                 if (!einmalEintrag.contains("NURDREIER")) {
                     nurDreier = scoreRes;
@@ -60,7 +57,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "NURVIERER" -> {
                 if (!einmalEintrag.contains("NURVIERER")) {
                     nurVierer = scoreRes;
@@ -69,7 +65,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "NURFUENFER" -> {
                 if (!einmalEintrag.contains("NURFUENFER")) {
                     nurFuenfer = scoreRes;
@@ -78,7 +73,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "NURSECHSER" -> {
                 if (!einmalEintrag.contains("NURSECHSER")) {
                     nurSechser = scoreRes;
@@ -87,17 +81,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
-            // muss ueberprueft werden! //Logik in Kniffel
-            case "BONUS" -> {
-                if (!einmalEintrag.contains("BONUS")) {
-                    bonus = 35;
-                    einmalEintrag.add("BONUS");
-                } else {
-                    throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
-                }
-            }
-
             case "DREIERPASCH" -> {
                 if (!einmalEintrag.contains("DREIERPASCH")) {
                     dreierPasch = scoreRes;
@@ -106,7 +89,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "VIERERPASCH" -> {
                 if (!einmalEintrag.contains("VIERERPASCH")) {
                     viererPasch = scoreRes;
@@ -115,7 +97,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "FULLHOUSE" -> {
                 if (!einmalEintrag.contains("FULLHOUSE")) {
                     fullHouse = scoreRes;
@@ -124,7 +105,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "KLEINESTRASSE" -> {
                 if (!einmalEintrag.contains("KLEINESTRASSE")) {
                     kleineStrasse = scoreRes;
@@ -133,7 +113,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "GROSSESTRASSE" -> {
                 if (!einmalEintrag.contains("GROSSESTRASSE")) {
                     grosseStrasse = scoreRes;
@@ -142,7 +121,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "KNIFFEL" -> {
                 if (!einmalEintrag.contains("KNIFFEL")) {
                     kniffel = scoreRes;
@@ -151,7 +129,6 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             case "CHANCE" -> {
                 if (!einmalEintrag.contains("CHANCE")) {
                     chance = scoreRes;
@@ -160,11 +137,7 @@ public class Block {
                     throw new IllegalStateException("Besetzte Kategorie: " + kategorie);
                 }
             }
-
             default -> throw new IllegalStateException("Unexpected value: " + kategorie);
         }
-        ;
     }
-
-
 }

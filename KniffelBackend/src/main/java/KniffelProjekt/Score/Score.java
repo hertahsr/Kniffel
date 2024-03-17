@@ -1,11 +1,11 @@
 package KniffelProjekt.Score;
 
-import KniffelProjekt.Kniffel.Kniffel;
-import KniffelProjekt.Kniffel.KniffelService;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -26,39 +26,26 @@ public class Score {
     private final int grosseStrasseScore = 40;
     private final int kniffelScore = 50;
     private final int chanceScore = 1;
-    //void Enum{
-
-    //}
-
+    private final String kleineStrasse1 = "1234";
+    private final String kleineStrasse2 = "2345";
+    private final String kleineStrasse3 = "3456";
+    private final String grosseStrasse1 = "12345";
+    private final String grosseStrasse2 = "23456";
 
     public Score(String kategorie, List<Integer> wuerfel) {
         this.score = scoreBerechnen(kategorie, wuerfel);
 
     }
 
-
     private int scoreBerechnen(String kategorie, List<Integer> wuerfel) {
 
         int score = switch (kategorie) {
             case "NUREINSER" -> nurEinserScore * (int) wuerfel.stream().filter(e -> e == 1).count();
-            //wenn Zeit-ENUM
-            //wo kommt die Methode hin um den score einzutragen-
-            // im Spieler score object und im richtigen feld methode
-            // scoreEintragen(kategorie, wert)
-
             case "NURZWEIER" -> nurZweierScore * (int) wuerfel.stream().filter(e -> e == 2).count();
-
             case "NURDREIER" -> nurDreierScore * (int) wuerfel.stream().filter(e -> e == 3).count();
-
             case "NURVIERER" -> nurViererScore * (int) wuerfel.stream().filter(e -> e == 4).count();
-
             case "NURFUENFER" -> nurFuenferScore * (int) wuerfel.stream().filter(e -> e == 5).count();
-
             case "NURSECHSER" -> nurSechserScore * (int) wuerfel.stream().filter(e -> e == 6).count();
-
-            case "BONUS" -> bonusScore;
-
-            //needs review
             case "DREIERPASCH" -> {
                 int res = 0;
                 if (wuerfel.stream().collect(Collectors.groupingBy(i -> i, Collectors.counting())).values().stream().anyMatch(count -> count >= 3)) {
@@ -66,7 +53,6 @@ public class Score {
                 }
                 yield res;
             }
-
             case "VIERERPASCH" -> {
                 int res = 0;
                 if (wuerfel.stream().collect(Collectors.groupingBy(i -> i, Collectors.counting())).values().stream().anyMatch(count -> count >= 4)) {
@@ -80,7 +66,6 @@ public class Score {
 
                 boolean hasSetOf3 = false;
                 boolean hasSetOf2 = false;
-//                boolean flag=false;
 
                 for (Map.Entry<Integer, Long> entry : frequencyMap.entrySet()) {
                     long count = entry.getValue();
@@ -93,29 +78,27 @@ public class Score {
                 if (hasSetOf3 && hasSetOf2) res = fullHouseScore;
                 yield res;
             }
-
             case "KLEINESTRASSE" -> {
                 int res = 0;
                 if (wuerfel.stream().distinct().count() >= 4) {
                     List<Integer> wuerfelC = new ArrayList<>(wuerfel);
                     Collections.sort(wuerfelC);
                     String s = wuerfelC.stream().distinct().map(String::valueOf).collect(Collectors.joining());
-                    if (s.contains("1234") || s.contains("2345") || s.contains("3456")) res = kleineStrasseScore;
+                    if (s.contains(kleineStrasse1) || s.contains(kleineStrasse2) || s.contains(kleineStrasse3)) res =
+                            kleineStrasseScore;
                 }
                 yield res;
             }
-
             case "GROSSESTRASSE" -> {
                 int res = 0;
                 if (wuerfel.stream().distinct().count() >= 5) {
                     List<Integer> wuerfelC = new ArrayList<>(wuerfel);
                     Collections.sort(wuerfelC);
                     String s = wuerfelC.stream().distinct().map(String::valueOf).collect(Collectors.joining());
-                    if (s.contains("12345") || s.contains("23456")) res = grosseStrasseScore;
+                    if (s.contains(grosseStrasse1) || s.contains(grosseStrasse2)) res = grosseStrasseScore;
                 }
                 yield res;
             }
-
             case "KNIFFEL" -> {
                 int res = 0;
                 if (wuerfel.stream().distinct().count() == 1) {
@@ -123,14 +106,9 @@ public class Score {
                 }
                 yield res;
             }
-
             case "CHANCE" -> chanceScore * wuerfel.stream().mapToInt(Integer::intValue).sum();
-
-
             default -> throw new IllegalStateException("Unexpected value: " + kategorie);
         };
         return score;
     }
-
-
 }
