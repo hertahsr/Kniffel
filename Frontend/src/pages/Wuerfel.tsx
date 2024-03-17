@@ -1,8 +1,9 @@
-import {useRef} from "react";
-import {post} from "../api/Api.ts";
+import {useRef, useState} from "react";
+import {post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
+import Kniffel from "./Kniffel.tsx";
 
-function Wuerfel() {
+function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kniffel }) {
     const idStore = useIdStore()
     const diceOneRef = useRef(null)
     const diceTwoRef = useRef(null)
@@ -19,36 +20,45 @@ function Wuerfel() {
         diceFiveRef.current.className = "dice dice-five show-" + result[4]
     }
 
-    async function fix() {
-        
+    const [diceFix, setDiceFix] = useState<boolean[]>([])
+
+    async function fix(wuerfelIndex: number) {
+        const kniffel: Kniffel = await put<number, Kniffel>("http://localhost:8080/kniffel/" + idStore.id + "/wuerfel", wuerfelIndex)
+        props.handleChange(kniffel)
     }
+
 
     return (
         <>
             <div className="game">
                 <div className="w-container">
-                    <div ref={diceOneRef} className="dice dice-one">
-                        <EinWuerfel/>
+                    <div ref={diceOneRef} className="dice dice-one" onClick={async () => await fix(1)}>
+                        <EinWuerfel
+                            outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 1) ? "none" : "solid"}/>
                     </div>
                 </div>
                 <div className="w-container">
-                    <div ref={diceTwoRef} className="dice dice-two">
-                        <EinWuerfel/>
+                    <div ref={diceTwoRef} className="dice dice-two" onClick={async () => await fix(2)}>
+                        <EinWuerfel
+                            outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 2) ? "none" : "solid"}/>
                     </div>
                 </div>
                 <div className="w-container">
-                    <div ref={diceThreeRef} className="dice dice-three">
-                        <EinWuerfel/>
+                    <div ref={diceThreeRef} className="dice dice-three" onClick={async () => await fix(3)}>
+                        <EinWuerfel
+                            outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 3) ? "none" : "solid"}/>
                     </div>
                 </div>
                 <div className="w-container">
-                    <div ref={diceFourRef} className="dice dice-four">
-                        <EinWuerfel/>
+                    <div ref={diceFourRef} className="dice dice-four" onClick={async () => await fix(4)}>
+                        <EinWuerfel
+                            outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 4) ? "none" : "solid"}/>
                     </div>
                 </div>
                 <div className="w-container">
-                    <div ref={diceFiveRef} className="dice dice-five">
-                        <EinWuerfel/>
+                    <div ref={diceFiveRef} className="dice dice-five" onClick={async () => await fix(5)}>
+                        <EinWuerfel
+                            outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 5) ? "none" : "solid"}/>
                     </div>
                 </div>
                 <div id='roll' className='roll-button'>
@@ -59,35 +69,35 @@ function Wuerfel() {
     )
 }
 
-function EinWuerfel() {
+function EinWuerfel(props: { outlineStyle: string }) {
     return (
         <>
-            <div className='side one'>
+            <div className='side one' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot one-1"></div>
             </div>
-            <div className='side two'>
+            <div className='side two' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot two-1"></div>
                 <div className="dot two-2"></div>
             </div>
-            <div className='side three'>
+            <div className='side three' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot three-1"></div>
                 <div className="dot three-2"></div>
                 <div className="dot three-3"></div>
             </div>
-            <div className='side four'>
+            <div className='side four' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot four-1"></div>
                 <div className="dot four-2"></div>
                 <div className="dot four-3"></div>
                 <div className="dot four-4"></div>
             </div>
-            <div className='side five'>
+            <div className='side five' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot five-1"></div>
                 <div className="dot five-2"></div>
                 <div className="dot five-3"></div>
                 <div className="dot five-4"></div>
                 <div className="dot five-5"></div>
             </div>
-            <div className='side six'>
+            <div className='side six' style={{outlineStyle: props.outlineStyle}}>
                 <div className="dot six-1"></div>
                 <div className="dot six-2"></div>
                 <div className="dot six-3"></div>

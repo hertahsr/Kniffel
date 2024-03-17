@@ -24,7 +24,7 @@ function Kniffel() {
                         </Grid>
                     ))}
                     <Grid xs>
-                        <Wuerfel/>
+                        <Wuerfel handleChange={changeKniffel} kniffel={kniffel}/>
                     </Grid>
                 </Grid>
             </Container>

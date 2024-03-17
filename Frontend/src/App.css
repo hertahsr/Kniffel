@@ -34,28 +34,28 @@ html, body, #root, #root > div {
 
 .dice-one {
     position: absolute;
-    left: 150px;
+    left: 100px;
 }
 
 .dice-two {
     position: absolute;
-    left: 300px;
+    left: 200px;
 
 }
 
 .dice-three {
     position: absolute;
-    left: 450px;
+    left: 300px;
 }
 
 .dice-four {
     position: absolute;
-    left: 600px;
+    left: 400px;
 }
 
 .dice-five {
     position: absolute;
-    left: 750px;
+    left: 500px;
 }
 
 .side {
@@ -67,6 +67,7 @@ html, body, #root, #root > div {
     border: 1px solid #e5e5e5;
     text-align: center;
     line-height: 2em;
+    outline-width: 3px;
 }
 
 .side:nth-child(1) {

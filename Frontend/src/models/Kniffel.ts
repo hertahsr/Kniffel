@@ -5,4 +5,5 @@ interface Kniffel {
     runde: number
     uebrigeWuerfe: number
     wuerfel: number[]
+    freieWuerfel: number[]
 }
