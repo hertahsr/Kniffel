@@ -28,7 +28,7 @@ public class Kniffel {
 
     private Long id;
     private List<Spieler> teilnehmer;
-    private List<Spieler> gewinnerListe;
+    private List<Spieler> gewinnerListe = new ArrayList<>();
     private int aktiverSpielerIndex = 0;
     private int runde = 0;
     private int uebrigeWuerfe = maxWuerfe;
