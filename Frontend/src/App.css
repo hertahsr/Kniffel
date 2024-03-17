@@ -34,28 +34,28 @@ html, body, #root, #root > div {
 
 .dice-one {
     position: absolute;
-    left: 100px;
+    left: 120px;
 }
 
 .dice-two {
     position: absolute;
-    left: 200px;
+    left: 240px;
 
 }
 
 .dice-three {
     position: absolute;
-    left: 300px;
+    left: 360px;
 }
 
 .dice-four {
     position: absolute;
-    left: 400px;
+    left: 480px;
 }
 
 .dice-five {
     position: absolute;
-    left: 500px;
+    left: 600px;
 }
 
 .side {
@@ -151,4 +151,16 @@ html, body, #root, #root > div {
 .six-5 {
     top: 50%;
     left: 80%;
+}
+
+.block th,
+td {
+    border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.icon {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
 }

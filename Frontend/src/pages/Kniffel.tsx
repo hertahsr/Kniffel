@@ -3,7 +3,7 @@ import {
     Button,
     Container,
     Dialog, DialogActions,
-    DialogContent, DialogContentText,
+    DialogContent, DialogContentText, Paper,
     Table,
     TableBody,
     TableCell,
@@ -28,12 +28,15 @@ function Kniffel() {
 
     return (
         <>
-            <Container maxWidth="sm">
+            <Container maxWidth="100%">
                 <Grid container spacing={2}>
                     {kniffel.teilnehmer.map(spieler => (
-                        <Grid xs={5}>
-                            <BlockComponent handleChange={changeKniffel} spieler={spieler}/>
+                        <Grid xs={2}>
+                            <Paper elevation={3} className={"block"}>
+                                <BlockComponent handleChange={changeKniffel} spieler={spieler}/>
+                            </Paper>
                         </Grid>
+
                     ))}
                     <Grid xs>
                         <Wuerfel handleChange={changeKniffel} kniffel={kniffel}/>
@@ -72,10 +75,10 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
 
     const blockElement =
         <>
-            <Table sx={{minWidth: 150}} aria-label="simple table">
+            <Table sx={{minWidth: 100}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>{props.spieler.name}</TableCell>
+                        <TableCell colSpan={2}>{"Spielername: " + props.spieler.name}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -84,10 +87,12 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                             key={category[0]}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" style={{padding: 0}}>
+                                <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}/>
                                 {category[0]}
                             </TableCell>
-                            <TableCell onClick={() => enterScore(category[0])} align="right">{category[1]}</TableCell>
+                            <TableCell onClick={() => enterScore(category[0])}
+                                       align="right">{category[1]}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
