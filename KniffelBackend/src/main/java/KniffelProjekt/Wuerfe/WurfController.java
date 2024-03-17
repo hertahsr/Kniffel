@@ -19,7 +19,7 @@ public class WurfController {
     private KniffelService kniffelService;
 
     @PostMapping()
-    public List<Integer> wuerfeln(@RequestBody Long kniffelID) {
+    public Kniffel wuerfeln(@RequestBody Long kniffelID) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelID);
         if (kniffel.getUebrigeWuerfe() != 0) {
             Set<Integer> freieWuerfel = kniffel.getFreieWuerfel();
@@ -38,7 +38,7 @@ public class WurfController {
             }
             kniffel.setWuerfel(neueWuerfel);
         }
-        return kniffel.getWuerfel();//return das letzte Ergebnis
+        return kniffel;
     }
 
 }
