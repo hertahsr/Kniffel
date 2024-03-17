@@ -2,6 +2,7 @@ package KniffelProjekt.Kniffel;
 
 import KniffelProjekt.Block.Block;
 import KniffelProjekt.Spieler.Spieler;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,15 @@ import java.util.*;
 @Getter
 @Setter
 public class Kniffel {
+    @JsonIgnore
     private final int maxWuerfe = 3;
+    @JsonIgnore
     private final Set<Integer> alleWuerfel = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5));
+    @JsonIgnore
     private final Integer bonusGrenze = 63;
+    @JsonIgnore
     private final Integer bonusScore = 35;
+    @JsonIgnore
     private final int anzahlRunden = 13;
 
     private Long id;
@@ -89,6 +95,7 @@ public class Kniffel {
             block.setGesamtPunkte(gesamtPunkte);
         }
     }
+
     private static Integer getPunkteObererTeil(Block block) {
         List<Integer> obererTeil =
                 new ArrayList<>(Arrays.asList(block.getNurEinser(), block.getNurZweier(), block.getNurDreier(),

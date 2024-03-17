@@ -37,10 +37,7 @@ public class WurfController {
                 indexWurfErgebnis++;
             }
             kniffel.setWuerfel(neueWuerfel);
-
-            return wurfErgebnis;
         }
-
         return kniffel.getWuerfel();//return das letzte Ergebnis
     }
 
