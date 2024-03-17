@@ -6,5 +6,8 @@ export async function post<I, O>(path: string, data: I) {
         },
         body: JSON.stringify(data)
     })
+    if (!response.ok) {
+        throw Error(response.status + " " + response.statusText)
+    }
     return await response.json() as Promise<O>
 }

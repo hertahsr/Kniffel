@@ -8,7 +8,7 @@ import {useState} from "react";
 
 function Kniffel() {
     const {state} = useLocation()
-    const [kniffel, setKniffel] = useState(state.kniffel)
+    const [kniffel, setKniffel] = useState<Kniffel>(state.kniffel)
 
     function changeKniffel(changedKniffel: Kniffel) {
         setKniffel(changedKniffel)
@@ -18,12 +18,11 @@ function Kniffel() {
         <>
             <Container maxWidth="sm">
                 <Grid container spacing={2}>
-                    <Grid xs={5}>
-                        <BlockComponent handleChange={changeKniffel} block={kniffel.teilnehmer[0].block}/>
-                    </Grid>
-                    <Grid xs={5}>
-                        <BlockComponent handleChange={changeKniffel} block={kniffel.teilnehmer[0].block}/>
-                    </Grid>
+                    {kniffel.teilnehmer.map(spieler => (
+                        <Grid xs={5}>
+                            <BlockComponent handleChange={changeKniffel} spieler={spieler}/>
+                        </Grid>
+                    ))}
                     <Grid xs>
                         <Wuerfel/>
                     </Grid>
@@ -33,13 +32,20 @@ function Kniffel() {
     )
 }
 
-function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, block: Block; }) {
+function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spieler: Spieler; }) {
     const idStore = useIdStore()
-    const block = props.block
+    const block = props.spieler.block
 
     async function enterScore(category: string) {
-        const kniffel = await post<string, Kniffel>("http://localhost:8080/kniffel/" + idStore.id, category.toUpperCase())
-        props.handleChange(kniffel)
+        let kniffel;
+        try {
+            kniffel = await post<string, Kniffel>("http://localhost:8080/kniffel/" + idStore.id, category.toUpperCase())
+            props.handleChange(kniffel)
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log(error.message)
+            }
+        }
     }
 
     const blockElement =
@@ -47,7 +53,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, block
             <Table sx={{minWidth: 150}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>{"Spieler " + 1}</TableCell>
+                        <TableCell>{props.spieler.name}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

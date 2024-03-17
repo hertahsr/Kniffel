@@ -19,6 +19,10 @@ function Wuerfel() {
         diceFiveRef.current.className = "dice dice-five show-" + result[4]
     }
 
+    async function fix() {
+        
+    }
+
     return (
         <>
             <div className="game">
