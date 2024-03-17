@@ -1,13 +1,25 @@
 import Wuerfel from "./Wuerfel.tsx";
-import {Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Button,
+    Container,
+    Dialog, DialogActions,
+    DialogContent, DialogContentText,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {post} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
 import {useState} from "react";
 
 function Kniffel() {
     const {state} = useLocation()
+    const navigate = useNavigate();
     const [kniffel, setKniffel] = useState<Kniffel>(state.kniffel)
 
     function changeKniffel(changedKniffel: Kniffel) {
@@ -28,6 +40,16 @@ function Kniffel() {
                     </Grid>
                 </Grid>
             </Container>
+            <Dialog open={kniffel.gewinnerListe.length > 0}>
+                <DialogContent>
+                    <DialogContentText>
+                        {"Gewinner: " + kniffel.gewinnerListe.map(spieler => spieler.name + " ")}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => navigate("/")}>Neues Spiel</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

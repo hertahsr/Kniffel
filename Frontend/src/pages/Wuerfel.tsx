@@ -2,6 +2,7 @@ import {useRef, useState} from "react";
 import {post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
 import Kniffel from "./Kniffel.tsx";
+import kniffel from "./Kniffel.tsx";
 
 function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kniffel }) {
     const idStore = useIdStore()
@@ -12,12 +13,14 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
     const diceFiveRef = useRef(null)
 
     async function rollDice() {
-        const result = await post<number, number[]>("http://localhost:8080/wuerfe", idStore.id)
+        const kniffel: Kniffel = await post<number, Kniffel>("http://localhost:8080/wuerfe", idStore.id)
+        const result = kniffel.wuerfel
         diceOneRef.current.className = "dice dice-one show-" + result[0]
         diceTwoRef.current.className = "dice dice-two show-" + result[1]
         diceThreeRef.current.className = "dice dice-three show-" + result[2]
         diceFourRef.current.className = "dice dice-four show-" + result[3]
         diceFiveRef.current.className = "dice dice-five show-" + result[4]
+        props.handleChange(kniffel)
     }
 
     const [diceFix, setDiceFix] = useState<boolean[]>([])
@@ -62,7 +65,7 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
                     </div>
                 </div>
                 <div id='roll' className='roll-button'>
-                    <button onClick={rollDice}>Roll dice!</button>
+                    <button onClick={rollDice}>{"Übrige Würfe: " + props.kniffel.uebrigeWuerfe}</button>
                 </div>
             </div>
         </>

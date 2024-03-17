@@ -6,4 +6,5 @@ interface Kniffel {
     uebrigeWuerfe: number
     wuerfel: number[]
     freieWuerfel: number[]
+    gewinnerListe: Spieler[]
 }
