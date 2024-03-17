@@ -25,9 +25,10 @@ public class ScoreController {
     private void scoreEintragen(String kategorie, int score, Long kniffelId) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
         //kein Eintragen bevor der Spieler gewuerfelt hat
-        if(kniffel.getUebrigeWuerfe()!=3) {
+        if (kniffel.getUebrigeWuerfe() != 3) {
             kniffel.getAktiverSpieler().getBlock().setKat(kategorie, score);
             kniffel.auswertung();
+            kniffel.naechsterSpieler();
         }
     }
 

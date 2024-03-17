@@ -1,11 +1,10 @@
 package KniffelProjekt.Block;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
-import java.util.HashMap;
-import java.util.stream.Collectors;
+import java.util.HashSet;
 
 @Getter
 @Setter
@@ -28,6 +27,7 @@ public class Block {
     private Integer punkteUntererTeil;
     private Integer gesamtPunkte;
 
+    @JsonIgnore
     private HashSet<String> einmalEintrag = new HashSet<>();
 
 
