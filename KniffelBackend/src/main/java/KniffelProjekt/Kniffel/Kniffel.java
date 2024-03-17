@@ -22,6 +22,7 @@ public class Kniffel {
 
     private Long id;
     private List<Spieler> teilnehmer;
+    private List<Spieler> gewinnerListe;
     private int aktiverSpielerIndex = 0;
     private int runde = 0;
     private int uebrigeWuerfe = maxWuerfe;
@@ -35,14 +36,28 @@ public class Kniffel {
         } else {
             runde++;
             if (runde >= anzahlRunden) {
-                // Sieger feststellen Spiel beenden
+                ermitlleGewinner();
                 return;
             }
             aktiverSpielerIndex = 0;
         }
+        //uebrigeWürfe zurücksetzen und alle Wuerfel unfixieren
         uebrigeWuerfe = getMaxWuerfe();
-        freieWuerfel = new HashSet<>(alleWuerfel);  //alle Wuerfel unfixieren beim Spielerwechsel
+        freieWuerfel = new HashSet<>(alleWuerfel);
+    }
 
+    private void ermitlleGewinner() {
+        Integer maxPunkte = 0;
+        for (Spieler spieler : teilnehmer) {
+            if (spieler.getBlock().getGesamtPunkte().compareTo(maxPunkte) > 0) {
+                maxPunkte = spieler.getBlock().getGesamtPunkte();
+            }
+        }
+        for (Spieler spieler : teilnehmer) {
+            if (spieler.getBlock().getGesamtPunkte().compareTo(maxPunkte) == 0) {
+                gewinnerListe.add(spieler);
+            }
+        }
     }
 
     public void auswertung() {
@@ -128,5 +143,4 @@ public class Kniffel {
     private void wuerfelUnFixieren(int unfixierteWuerfel) {
         freieWuerfel.add(unfixierteWuerfel);
     }
-
 }
