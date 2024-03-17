@@ -1,8 +1,21 @@
 import Grid from "@mui/material/Unstable_Grid2";
-import {Button, Card, CardContent, CardHeader, Container, List, ListItem, ListItemText, TextField} from "@mui/material";
+import {
+    Button,
+    Card,
+    CardContent,
+    CardHeader, Chip,
+    Container,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    TextField
+} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import useIdStore from "../Store.ts";
 import {useState} from "react";
+import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Home() {
     const navigate = useNavigate();
@@ -17,13 +30,8 @@ function Home() {
                 </Grid>
                 <Grid xs={12}>
                     {spieler.map(spieler => (
-                        <Card sx={{maxWidth: 345, m: 2}}
-                              key={spieler.spielerId}
-                        >
-                            <CardContent>
-                                {"Spielername: " + spieler.name}
-                            </CardContent>
-                        </Card>
+                        <Chip icon={<PersonIcon fontSize={"large"}/>} label={"Spielername: " + spieler.name}
+                              variant="outlined" key={spieler.spielerId} sx={{m: 1}}/>
                     ))}
                 </Grid>
                 <Grid xs={12}>
@@ -32,7 +40,7 @@ function Home() {
                     <Button variant="outlined" onClick={async () => {
                         spieler.push(await getNeuenSpieler(newSpielerName))
                         setNewSpielerName("")
-                    }}>+</Button>
+                    }} style={{height: 56, marginLeft: 4}}><AddIcon/></Button>
                 </Grid>
                 <Grid xs={12}>
                     <Button variant="outlined" onClick={async () => {
