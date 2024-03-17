@@ -14,6 +14,7 @@ public class Block {
     private Integer nurVierer;
     private Integer nurFuenfer;
     private Integer nurSechser;
+    private Integer bonus;
     private Integer punkteObererTeil;
     private Integer dreierPasch;
     private Integer viererPasch;
