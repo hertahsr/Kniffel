@@ -15,8 +15,8 @@ public class Block {
     private Integer nurVierer;
     private Integer nurFuenfer;
     private Integer nurSechser;
-    private Integer bonus;
-    private Integer punkteObererTeil;
+    private Integer bonus = 0;
+    private Integer punkteObererTeil = 0;
     private Integer dreierPasch;
     private Integer viererPasch;
     private Integer fullHouse;
@@ -24,8 +24,8 @@ public class Block {
     private Integer grosseStrasse;
     private Integer kniffel;
     private Integer chance;
-    private Integer punkteUntererTeil;
-    private Integer gesamtPunkte;
+    private Integer punkteUntererTeil = 0;
+    private Integer gesamtPunkte = 0;
 
     @JsonIgnore
     private HashSet<String> einmalEintrag = new HashSet<>();
