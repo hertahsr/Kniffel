@@ -2,7 +2,6 @@ package KniffelProjekt.Kniffel;
 
 import KniffelProjekt.Spieler.Spieler;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,7 +21,9 @@ public class KniffelController {
     @PutMapping("/{kniffelId}/wuerfel")
     public Kniffel putWuerfel(@PathVariable Long kniffelId, @RequestBody int wuerfel) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
-        kniffel.wuerfelStatusAendern(wuerfel);
+        if (kniffel.getUebrigeWuerfe() < kniffel.getMaxWuerfe()) {
+            kniffel.wuerfelStatusAendern(wuerfel);
+        }
         return kniffel;
     }
 }
