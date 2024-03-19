@@ -22,10 +22,16 @@ public class ScoreController {
         return kniffel;
     }
 
+    private int validateScore (@RequestBody Object kategorie, @PathVariable Long kniffelId) {
+        Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
+        Score score = new Score((String)kategorie, kniffel.getWuerfel());
+        return score.getScore();
+    }
+
     private void scoreEintragen(String kategorie, int score, Long kniffelId) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
         //kein Eintragen bevor der Spieler gewuerfelt hat
-        if (kniffel.getUebrigeWuerfe() != 3) {
+        if (kniffel.getUebrigeWuerfe() >= kniffel.getMaxWuerfe()) {
             kniffel.getAktiverSpieler().getBlock().setKat(kategorie, score);
             kniffel.auswertung();
             kniffel.naechsterSpieler();
