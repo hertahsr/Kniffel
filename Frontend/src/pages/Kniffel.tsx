@@ -9,11 +9,11 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow, TextField
 } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import {useLocation, useNavigate} from "react-router-dom";
-import {post} from "../api/Api.ts";
+import {post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
 import {useState} from "react";
 
@@ -60,6 +60,13 @@ function Kniffel() {
 function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spieler: Spieler, kniffel: Kniffel }) {
     const idStore = useIdStore()
     const block = props.spieler.block
+    const [spielerName, setSpielerName] = useState(props.spieler.name)
+
+    async function changeName(newName: string) {
+        setSpielerName(newName)
+        const kniffel = await put<string, Kniffel>("http://localhost:8080/kniffel/" + idStore.id + "spieler/" + props.spieler.spielerId + "/name", newName)
+        props.handleChange(kniffel)
+    }
 
     async function enterScore(category: string) {
         let kniffel;
@@ -78,7 +85,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
             <Table sx={{minWidth: 100}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2}>{(isActivePlayer() ? "Aktiver Spieler " : "") + "Spielername: " + props.spieler.name}</TableCell>
+                        <TableCell colSpan={2}>{isActivePlayer() ? "Aktiver Spieler " : ""} <TextField label={"Spielername"} value={spielerName}  onChange={event => changeName(event.target.value)}/></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

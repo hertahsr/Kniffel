@@ -21,10 +21,11 @@ public class SpielerService {
         return neuerSpieler;
     }
 
-    public Spieler namenAendern(Long kniffelId, Long spielerId, String neuerName) {
-        Spieler spieler = kniffelService.findeKniffel(kniffelId).getTeilnehmer().stream().filter(teilnehmer -> teilnehmer.getSpielerId().equals(spielerId)).findFirst().get();
+    public Kniffel namenAendern(Long kniffelId, Long spielerId, String neuerName) {
+        Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
+        Spieler spieler = kniffel.getTeilnehmer().stream().filter(teilnehmer -> teilnehmer.getSpielerId().equals(spielerId)).findFirst().get();
         spieler.setName(neuerName);
-        return spieler;
+        return kniffel;
     }
 
 
