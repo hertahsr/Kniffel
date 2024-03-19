@@ -40,7 +40,7 @@ function Home() {
                     <Button variant="outlined" onClick={async () => {
                         spieler.push(await getNeuenSpieler(newSpielerName))
                         setNewSpielerName("")
-                    }} style={{height: 56, marginLeft: 4}}><AddIcon/></Button>
+                    }} style={{height: 56, marginLeft: 4}}  disabled={!newSpielerName}><AddIcon/></Button>
                 </Grid>
                 <Grid xs={12}>
                     <Button variant="outlined" onClick={async () => {

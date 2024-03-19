@@ -33,7 +33,7 @@ function Kniffel() {
                     {kniffel.teilnehmer.map(spieler => (
                         <Grid xs={2}>
                             <Paper elevation={3} className={"block"}>
-                                <BlockComponent handleChange={changeKniffel} spieler={spieler}/>
+                                <BlockComponent handleChange={changeKniffel} spieler={spieler} kniffel={kniffel}/>
                             </Paper>
                         </Grid>
 
@@ -57,7 +57,7 @@ function Kniffel() {
     )
 }
 
-function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spieler: Spieler; }) {
+function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spieler: Spieler, kniffel: Kniffel }) {
     const idStore = useIdStore()
     const block = props.spieler.block
 
@@ -78,7 +78,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
             <Table sx={{minWidth: 100}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2}>{"Spielername: " + props.spieler.name}</TableCell>
+                        <TableCell colSpan={2}>{(isActivePlayer() ? "Aktiver Spieler " : "") + "Spielername: " + props.spieler.name}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -91,7 +91,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                                 <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}/>
                                 {category[0]}
                             </TableCell>
-                            <TableCell onClick={() => enterScore(category[0])}
+                            <TableCell onClick={ isActivePlayer() ? () => enterScore(category[0]) : undefined}
                                        align="right">{category[1]}</TableCell>
                         </TableRow>
                     ))}
@@ -103,6 +103,10 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
             {blockElement}
         </TableContainer>
     )
+
+    function isActivePlayer() {
+            return props.spieler.spielerId == props.kniffel.teilnehmer[props.kniffel.aktiverSpielerIndex].spielerId
+    }
 }
 
 export default Kniffel
