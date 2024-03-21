@@ -120,9 +120,12 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
             <Table sx={{minWidth: 100}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2}><b>{isActivePlayer() ? "Aktiver Spieler " : ""}</b><TextField
-                            label={"Spielername"} value={spielerName}
-                            onChange={event => changeName(event.target.value)}/></TableCell>
+                        <TableCell colSpan={2}><b>{isActivePlayer() ? "Aktiver Spieler " : ""}</b>
+                            <TextField
+                                label={"Spielername"} value={spielerName}
+                                onChange={event => changeName(event.target.value)}
+                                sx={{mt: 2}}/>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
