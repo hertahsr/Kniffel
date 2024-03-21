@@ -38,33 +38,33 @@ body {
 
 .dice-one {
     position: absolute;
-    left: 2px;
+    left: 120px;
 }
 
 .dice-two {
     position: absolute;
-    left: 122px;
+    left: 240px;
 
 }
 
 .dice-three {
     position: absolute;
-    left: 242px;
+    left: 360px;
 }
 
 .dice-four {
     position: absolute;
-    left: 362px;
+    left: 480px;
 }
 
 .dice-five {
     position: absolute;
-    left: 482px;
+    left: 600px;
 }
 
 .rollButton {
     position: absolute;
-    left: 210px;
+    left: 330px;
     top: 350px;
 }
 

@@ -137,7 +137,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                             >
                                 <TableCell component="th" scope="row" style={{padding: 0}}>
                                     <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}
-                                         style={{marginRight: 2}}/>
+                                         style={{marginRight: 2, marginLeft: 15}}/>
                                     {category[0].charAt(0).toUpperCase() + category[0].slice(1).split(/(?=[A-Z])/).join(" ")}
                                 </TableCell>
                                 <TableCell onClick={isActivePlayer() ? () => checkScore(category[0]) : undefined}
