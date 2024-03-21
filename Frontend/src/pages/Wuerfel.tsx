@@ -13,19 +13,19 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
     const diceFiveRef = useRef(null)
 
     async function rollDice() {
-        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 1)) {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 1) && props.kniffel.uebrigeWuerfe > 0) {
             diceOneRef.current.className = "dice dice-one spin"
         }
-        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 2)) {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 2) && props.kniffel.uebrigeWuerfe > 0) {
             diceTwoRef.current.className = "dice dice-two spin"
         }
-        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 3)) {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 3) && props.kniffel.uebrigeWuerfe > 0) {
             diceThreeRef.current.className = "dice dice-three spin"
         }
-        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 4)) {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 4) && props.kniffel.uebrigeWuerfe > 0) {
             diceFourRef.current.className = "dice dice-four spin"
         }
-        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 5)) {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 5) && props.kniffel.uebrigeWuerfe > 0) {
             diceFiveRef.current.className = "dice dice-five spin"
         }
         await sleep(400)
