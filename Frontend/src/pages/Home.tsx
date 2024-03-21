@@ -81,6 +81,7 @@ function Home() {
                         disableFocusListener
                         disableHoverListener
                         disableTouchListener
+                        size="small"
                         title={
                             <React.Fragment>
                                 <Typography color="inherit">Spiel starten</Typography>
@@ -89,8 +90,8 @@ function Home() {
                     >
                         <Fab aria-label="info" style={{
                             position: "absolute",
-                            bottom: 20,
-                            right: 20,
+                            top: 410,
+                            left: 860,
                         }}
                              onClick={handleTooltipOpen}>
                             <InfoIcon/>

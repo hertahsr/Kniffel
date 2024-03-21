@@ -62,6 +62,12 @@ body {
     left: 600px;
 }
 
+.rollButton {
+    position: absolute;
+    left: 330px;
+    top: 350px;
+}
+
 .side {
     position: absolute;
     background-color: #ffF;

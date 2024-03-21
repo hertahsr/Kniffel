@@ -78,9 +78,8 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
                             outlineStyle={props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 5) ? "none" : "solid"}/>
                     </div>
                 </div>
-                <div id='roll' className='roll-button'>
-                    <button onClick={rollDice}>{"Übrige Würfe: " + props.kniffel.uebrigeWuerfe}</button>
-                </div>
+                <button className={"rollButton"}
+                        onClick={rollDice}>{"Übrige Würfe: " + props.kniffel.uebrigeWuerfe}</button>
             </div>
         </>
     )
