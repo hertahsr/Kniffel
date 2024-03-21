@@ -2,6 +2,10 @@ html, body, #root, #root > div {
     width: 100%
 }
 
+body {
+    background: white;
+}
+
 .game {
     position: relative;
     width: auto;
