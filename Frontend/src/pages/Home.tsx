@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import {
     Button,
-    Chip, ClickAwayListener,
+    Chip, ClickAwayListener, colors,
     Container, Fab, styled,
     TextField, Tooltip, tooltipClasses, TooltipProps
 } from "@mui/material";
@@ -44,7 +44,7 @@ function Home() {
             <Container maxWidth="sm">
                 <Grid container spacing={2}>
                     <Grid xs={12}>
-                        <h1>Kniffel</h1>
+                        <h1 style={{color: "#213547"}}>Kniffel</h1>
                     </Grid>
                     <Grid xs={12}>
                         {spieler.map(spieler => (
