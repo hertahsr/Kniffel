@@ -1,8 +1,7 @@
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import {post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
 import Kniffel from "./Kniffel.tsx";
-import kniffel from "./Kniffel.tsx";
 
 function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kniffel }) {
     const idStore = useIdStore()
@@ -22,8 +21,6 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
         diceFiveRef.current.className = "dice dice-five show-" + result[4]
         props.handleChange(kniffel)
     }
-
-    const [diceFix, setDiceFix] = useState<boolean[]>([])
 
     async function fix(wuerfelIndex: number) {
         const kniffel: Kniffel = await put<number, Kniffel>("http://localhost:8080/kniffel/" + idStore.id + "/wuerfel", wuerfelIndex)

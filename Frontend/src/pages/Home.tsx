@@ -1,14 +1,8 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import {
     Button,
-    Card,
-    CardContent,
-    CardHeader, Chip,
+    Chip,
     Container,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
     TextField
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
@@ -40,7 +34,7 @@ function Home() {
                     <Button variant="outlined" onClick={async () => {
                         spieler.push(await getNeuenSpieler(newSpielerName))
                         setNewSpielerName("")
-                    }} style={{height: 56, marginLeft: 4}}  disabled={!newSpielerName}><AddIcon/></Button>
+                    }} style={{height: 56, marginLeft: 4}} disabled={!newSpielerName}><AddIcon/></Button>
                 </Grid>
                 <Grid xs={12}>
                     <Button variant="outlined" onClick={async () => {

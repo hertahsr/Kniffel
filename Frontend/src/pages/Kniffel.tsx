@@ -3,10 +3,10 @@ import {
     Button,
     Container,
     Dialog, DialogActions,
-    DialogContent, DialogContentText, Paper,
+    DialogContent, DialogContentText, Paper, styled,
     Table,
     TableBody,
-    TableCell,
+    TableCell, tableClasses,
     TableContainer,
     TableHead,
     TableRow, TextField
@@ -32,7 +32,8 @@ function Kniffel() {
                 <Grid container spacing={2}>
                     {kniffel.teilnehmer.map(spieler => (
                         <Grid xs={2}>
-                            <Paper elevation={3} className={"block"}>
+                            <Paper elevation={3} className={"block"}
+                                   style={{outlineStyle: spieler.spielerId == kniffel.teilnehmer[kniffel.aktiverSpielerIndex].spielerId ? "solid" : "none",}}>
                                 <BlockComponent handleChange={changeKniffel} spieler={spieler} kniffel={kniffel}/>
                             </Paper>
                         </Grid>
@@ -85,7 +86,9 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
             <Table sx={{minWidth: 100}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell colSpan={2}>{isActivePlayer() ? "Aktiver Spieler " : ""} <TextField label={"Spielername"} value={spielerName}  onChange={event => changeName(event.target.value)}/></TableCell>
+                        <TableCell colSpan={2}><b>{isActivePlayer() ? "Aktiver Spieler " : ""}</b><TextField
+                            label={"Spielername"} value={spielerName}
+                            onChange={event => changeName(event.target.value)}/></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -95,10 +98,11 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell component="th" scope="row" style={{padding: 0}}>
-                                <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}/>
-                                {category[0]}
+                                <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}
+                                     style={{marginRight: 2}}/>
+                                {category[0].charAt(0).toUpperCase() + category[0].slice(1).split(/(?=[A-Z])/).join(" ")}
                             </TableCell>
-                            <TableCell onClick={ isActivePlayer() ? () => enterScore(category[0]) : undefined}
+                            <TableCell onClick={isActivePlayer() ? () => enterScore(category[0]) : undefined}
                                        align="right">{category[1]}</TableCell>
                         </TableRow>
                     ))}
@@ -112,7 +116,7 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
     )
 
     function isActivePlayer() {
-            return props.spieler.spielerId == props.kniffel.teilnehmer[props.kniffel.aktiverSpielerIndex].spielerId
+        return props.spieler.spielerId == props.kniffel.teilnehmer[props.kniffel.aktiverSpielerIndex].spielerId
     }
 }
 
