@@ -174,7 +174,8 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                                 {"Auf der linken Seite befinden sich die Spielerblöcke, die jedem Spieler persönlich zugeordnet sind. Der Block des Spielers, der an der Reihe ist, wird hervorgehoben. Jeder Spieler würfelt, indem er auf den Knopf \"Übrige Würfe: \" mit der Anzahl der übrigen Würfe klickt. Nach dem ersten Wurf in jeder Runde kann der Spieler beliebige Würfel fixieren bzw. freigeben, indem er sie anklickt. Fixierten Würfel werden gerahmt dargestellt und werden beim nächsten Wurf nicht mit gewürfelt. Spätestens nach dem dritten Wurf in der Runde muss der aktive Spieler sein Ergebnis in das entsprechende Feld seines Spielblocks eintragen, indem er auf die ausgewählte Kategorie klickt. Damit endet der Zug des Spielers. Wenn das Spiel zu Ende ist, wird der oder die Gewinner in einem Pop-up-Fenster bekannt gegeben."}
                                 <br/>
                                 <br/>
-                                <a href={"https://www.schmidtspiele.de/files/Produkte/5/51203%20-%20Kniffel/51203_Kniffel_DE.pdf"}>Spielregeln</a>
+                                <a href={"https://www.schmidtspiele.de/files/Produkte/5/51203%20-%20Kniffel/51203_Kniffel_DE.pdf"}
+                                   target={"_blank"}>Spielregeln</a>
                             </React.Fragment>}
                     >
                         <Fab aria-label="info" style={{
