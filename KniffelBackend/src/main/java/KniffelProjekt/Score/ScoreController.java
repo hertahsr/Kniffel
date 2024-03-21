@@ -3,10 +3,7 @@ package KniffelProjekt.Score;
 import KniffelProjekt.Kniffel.Kniffel;
 import KniffelProjekt.Kniffel.KniffelService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -14,7 +11,7 @@ public class ScoreController {
 
     private final KniffelService kniffelService;
 
-    @PostMapping("/kniffel/{kniffelId}")
+    @PostMapping("/kniffel/{kniffelId}/scores")
     public Kniffel score(@RequestBody Object kategorie, @PathVariable Long kniffelId) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
         Score score = new Score((String) kategorie, kniffel.getWuerfel());
@@ -22,7 +19,8 @@ public class ScoreController {
         return kniffel;
     }
 
-    private int validateScore(@RequestBody Object kategorie, @PathVariable Long kniffelId) {
+    @GetMapping("/kniffel/{kniffelId}/scores/{kategorie}")
+    private int validateScore(@PathVariable Object kategorie, @PathVariable Long kniffelId) {
         Kniffel kniffel = kniffelService.findeKniffel(kniffelId);
         Score score = new Score((String) kategorie, kniffel.getWuerfel());
         return score.getScore();

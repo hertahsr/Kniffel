@@ -3,17 +3,15 @@ import {
     Button,
     Container,
     Dialog, DialogActions,
-    DialogContent, DialogContentText, Paper, styled,
-    Table,
+    DialogContent, DialogContentText, Paper, Table,
     TableBody,
-    TableCell, tableClasses,
-    TableContainer,
+    TableCell, TableContainer,
     TableHead,
     TableRow, TextField
 } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import {useLocation, useNavigate} from "react-router-dom";
-import {post, put} from "../api/Api.ts";
+import {get, post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
 import {useState} from "react";
 
@@ -61,7 +59,9 @@ function Kniffel() {
 function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spieler: Spieler, kniffel: Kniffel }) {
     const idStore = useIdStore()
     const block = props.spieler.block
+    const [openDialog, setOpenDialog] = useState(false)
     const [spielerName, setSpielerName] = useState(props.spieler.name)
+    const [category, setCategory] = useState("")
 
     async function changeName(newName: string) {
         setSpielerName(newName)
@@ -69,10 +69,17 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
         props.handleChange(kniffel)
     }
 
+    async function checkScore(category: string) {
+        const score = await get<number>("http://localhost:8080/kniffel/" + idStore.id + "/scores/" + category.toUpperCase())
+        if (score == 0) {
+            setCategory(category)
+            setOpenDialog(true)
+        } else await enterScore(category)
+    }
+
     async function enterScore(category: string) {
-        let kniffel;
         try {
-            kniffel = await post<string, Kniffel>("http://localhost:8080/kniffel/" + idStore.id, category.toUpperCase())
+            const kniffel = await post<string, Kniffel>("http://localhost:8080/kniffel/" + idStore.id + "/scores", category.toUpperCase())
             props.handleChange(kniffel)
         } catch (error) {
             if (error instanceof Error) {
@@ -93,21 +100,38 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                 </TableHead>
                 <TableBody>
                     {Object.entries(block).map((category) => (
-                        <TableRow
-                            key={category[0]}
-                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                        >
-                            <TableCell component="th" scope="row" style={{padding: 0}}>
-                                <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}
-                                     style={{marginRight: 2}}/>
-                                {category[0].charAt(0).toUpperCase() + category[0].slice(1).split(/(?=[A-Z])/).join(" ")}
-                            </TableCell>
-                            <TableCell onClick={isActivePlayer() ? () => enterScore(category[0]) : undefined}
-                                       align="right">{category[1]}</TableCell>
-                        </TableRow>
+                        <>
+                            <TableRow
+                                key={category[0]}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell component="th" scope="row" style={{padding: 0}}>
+                                    <img src={'./src/assets/' + category[0] + '.png'} className={"icon"}
+                                         style={{marginRight: 2}}/>
+                                    {category[0].charAt(0).toUpperCase() + category[0].slice(1).split(/(?=[A-Z])/).join(" ")}
+                                </TableCell>
+                                <TableCell onClick={isActivePlayer() ? () => checkScore(category[0]) : undefined}
+                                           align="right">{category[1]}</TableCell>
+                            </TableRow>
+                        </>
                     ))}
                 </TableBody>
             </Table>
+            <Dialog open={openDialog}>
+                <DialogContent>
+                    <DialogContentText>
+                        {"Möchten Sie wirklich 0 eintragen?"}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={async () => {
+                        await enterScore(category)
+                        setCategory("")
+                        setOpenDialog(false)
+                    }}>Ja</Button>
+                    <Button onClick={() => setOpenDialog(false)}>Nein</Button>
+                </DialogActions>
+            </Dialog>
         </>
     return (
         <TableContainer>
