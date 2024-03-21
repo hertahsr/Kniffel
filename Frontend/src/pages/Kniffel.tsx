@@ -1,19 +1,21 @@
 import Wuerfel from "./Wuerfel.tsx";
 import {
-    Button,
+    Button, ClickAwayListener,
     Container,
     Dialog, DialogActions,
-    DialogContent, DialogContentText, Paper, Table,
+    DialogContent, DialogContentText, Fab, Paper, styled, Table,
     TableBody,
     TableCell, TableContainer,
     TableHead,
-    TableRow, TextField
+    TableRow, TextField, Tooltip, tooltipClasses, TooltipProps
 } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import {useLocation, useNavigate} from "react-router-dom";
 import {get, post, put} from "../api/Api.ts";
 import useIdStore from "../Store.ts";
-import {useState} from "react";
+import React, {useState} from "react";
+import Typography from "@mui/material/Typography";
+import InfoIcon from "@mui/icons-material/Info";
 
 function Kniffel() {
     const {state} = useLocation()
@@ -88,6 +90,28 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
         }
     }
 
+    const [open, setOpen] = useState(false);
+
+    const handleTooltipClose = () => {
+        setOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setOpen(true);
+    };
+
+    const HtmlTooltip = styled(({className, ...props}: TooltipProps) => (
+        <Tooltip {...props} classes={{popper: className}}/>
+    ))(({theme}) => ({
+        [`& .${tooltipClasses.tooltip}`]: {
+            backgroundColor: '#f5f5f9',
+            color: 'rgba(0, 0, 0, 0.87)',
+            maxWidth: 220,
+            fontSize: theme.typography.pxToRem(12),
+            border: '1px solid #dadde9',
+        },
+    }));
+
     const blockElement =
         <>
             <Table sx={{minWidth: 100}} aria-label="simple table">
@@ -132,6 +156,34 @@ function BlockComponent(props: { handleChange: (kniffel: Kniffel) => void, spiel
                     <Button onClick={() => setOpenDialog(false)}>Nein</Button>
                 </DialogActions>
             </Dialog>
+            <ClickAwayListener onClickAway={handleTooltipClose}>
+                <div>
+                    <HtmlTooltip
+                        PopperProps={{
+                            disablePortal: true,
+                        }}
+                        onClose={handleTooltipClose}
+                        open={open}
+                        disableFocusListener
+                        disableHoverListener
+                        disableTouchListener
+                        title={
+                            <React.Fragment>
+                                <Typography color="inherit">Spiel spielen</Typography>
+                                {"Auf der linken Seite befinden sich die Spielerblöcke, die jedem Spieler persönlich zugeordnet sind. Der aktive Spieler wird durch Jeder Spieler würfelt, indem er auf den Knopf \"Übrige Würfe: \" mit der Anzahl der übrigen Würfe klickt. Nach dem ersten Wurf in jeder Runde kann der Spieler beliebige Würfel fixieren, indem er sie anklickt. Die fixierten Würfel werden gerahmt dargestellt und ändern sich nicht beim nächsten Wurf. Spätestens nach dem dritten Wurf in der Runde muss der aktive Spieler sein Ergebnis in das entsprechende Feld seines Spielblocks eintragen, indem er auf die ausgewählte Kategorie klickt. Damit endet der Zug des Spielers. Wenn das Spiel zu Ende ist, wird der oder die Gewinner in einem Pop-up-Fenster bekannt gegeben. "}
+                            </React.Fragment>}
+                    >
+                        <Fab aria-label="info" style={{
+                            position: "absolute",
+                            bottom: 20,
+                            right: 20,
+                        }}
+                             onClick={handleTooltipOpen}>
+                            <InfoIcon/>
+                        </Fab>
+                    </HtmlTooltip>
+                </div>
+            </ClickAwayListener>
         </>
     return (
         <TableContainer>
