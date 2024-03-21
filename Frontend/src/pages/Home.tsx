@@ -85,6 +85,7 @@ function Home() {
                         title={
                             <React.Fragment>
                                 <Typography color="inherit">Spiel starten</Typography>
+                                <br/>
                                 {"Vor Spielbeginn tragen alle Spieler ihren Namen nacheinander in das Textfeld ein, um sich im Spiel zu registrieren. Mit dem +-Button neben dem Textfeld werden Spieler dem Spiel hinzugefügt. Ein Spieler kann allein spielen, jedoch darf das Namensfeld nicht leer bleiben. Sobald sich alle Spieler eingetragen haben, kann das Spiel durch Klicken auf den Knopf \"SPIEL STARTEN\" gestartet werden."}
                             </React.Fragment>}
                     >
