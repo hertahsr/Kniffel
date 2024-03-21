@@ -88,32 +88,32 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
 function EinWuerfel(props: { outlineStyle: string }) {
     return (
         <>
-            <div className='side one' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side one' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot one-1"></div>
             </div>
-            <div className='side two' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side two' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot two-1"></div>
                 <div className="dot two-2"></div>
             </div>
-            <div className='side three' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side three' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot three-1"></div>
                 <div className="dot three-2"></div>
                 <div className="dot three-3"></div>
             </div>
-            <div className='side four' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side four' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot four-1"></div>
                 <div className="dot four-2"></div>
                 <div className="dot four-3"></div>
                 <div className="dot four-4"></div>
             </div>
-            <div className='side five' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side five' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot five-1"></div>
                 <div className="dot five-2"></div>
                 <div className="dot five-3"></div>
                 <div className="dot five-4"></div>
                 <div className="dot five-5"></div>
             </div>
-            <div className='side six' style={{outlineStyle: props.outlineStyle}}>
+            <div className='side six' style={{outlineStyle: props.outlineStyle, outlineColor: "black"}}>
                 <div className="dot six-1"></div>
                 <div className="dot six-2"></div>
                 <div className="dot six-3"></div>

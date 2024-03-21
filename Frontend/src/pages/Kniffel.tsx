@@ -33,7 +33,10 @@ function Kniffel() {
                     {kniffel.teilnehmer.map(spieler => (
                         <Grid xs={2}>
                             <Paper elevation={3} className={"block"}
-                                   style={{outlineStyle: spieler.spielerId == kniffel.teilnehmer[kniffel.aktiverSpielerIndex].spielerId ? "solid" : "none",}}>
+                                   style={{
+                                       outlineStyle: spieler.spielerId == kniffel.teilnehmer[kniffel.aktiverSpielerIndex].spielerId ? "solid" : "none",
+                                       outlineColor: "black"
+                                   }}>
                                 <BlockComponent handleChange={changeKniffel} spieler={spieler} kniffel={kniffel}/>
                             </Paper>
                         </Grid>
