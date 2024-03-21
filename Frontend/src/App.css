@@ -153,6 +153,10 @@ html, body, #root, #root > div {
     left: 80%;
 }
 
+.spin {
+    transform: rotateX(2160deg) rotateZ(-2160deg)
+}
+
 .block th,
 td {
     border: 1px solid rgba(224, 224, 224, 1);

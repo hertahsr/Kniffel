@@ -4,6 +4,7 @@ import useIdStore from "../Store.ts";
 import Kniffel from "./Kniffel.tsx";
 
 function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kniffel }) {
+    const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay))
     const idStore = useIdStore()
     const diceOneRef = useRef(null)
     const diceTwoRef = useRef(null)
@@ -12,6 +13,22 @@ function Wuerfel(props: { handleChange: (kniffel: Kniffel) => void, kniffel: Kni
     const diceFiveRef = useRef(null)
 
     async function rollDice() {
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 1)) {
+            diceOneRef.current.className = "dice dice-one spin"
+        }
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 2)) {
+            diceTwoRef.current.className = "dice dice-two spin"
+        }
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 3)) {
+            diceThreeRef.current.className = "dice dice-three spin"
+        }
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 4)) {
+            diceFourRef.current.className = "dice dice-four spin"
+        }
+        if (props.kniffel.freieWuerfel.find(wuerfel => wuerfel == 5)) {
+            diceFiveRef.current.className = "dice dice-five spin"
+        }
+        await sleep(400)
         const kniffel: Kniffel = await post<number, Kniffel>("http://localhost:8080/wuerfe", idStore.id)
         const result = kniffel.wuerfel
         diceOneRef.current.className = "dice dice-one show-" + result[0]
